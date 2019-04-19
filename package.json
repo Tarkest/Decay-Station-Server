@@ -1,0 +1,33 @@
+{
+  "name": "hapi-w",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --watch './**/*.ts' --ignore 'src/**/*.spec.ts' --exec ts-node index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "debug": "tsc && node-debug index.js",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "hapi": "^18.1.0",
+    "recursive-readdir-sync": "^1.0.6"
+  },
+  "dependencies": {
+    "@types/hapi": "^18.0.1",
+    "@types/node": "^11.11.5",
+    "boom": "^7.3.0",
+    "joi": "^14.3.1",
+    "mysql": "^2.16.0",
+    "pg": "^7.9.0",
+    "readdir": "^0.1.0",
+    "reflect-metadata": "^0.1.13",
+    "swagger-jsdoc": "^1.3.0",
+    "ts-node": "^8.0.3",
+    "typeorm": "^0.2.15",
+    "typescript": "^3.3.4000"
+  }
+}
