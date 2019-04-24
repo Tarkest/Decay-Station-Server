@@ -1,5 +1,5 @@
-import {Column, PrimaryGeneratedColumn, Entity, OneToOne, ManyToOne, OneToMany} from "typeorm";
-import {User, TrainBuilding} from '../'
+import {Column, PrimaryGeneratedColumn, Entity, ManyToOne, OneToMany, OneToOne, JoinColumn} from "typeorm";
+import {User, TrainBuilding, LocomotiveType} from '../'
 import {Item} from "../Item";
 
 @Entity('Locomotives')
@@ -10,6 +10,10 @@ export class Locomotive {
     @Column({default: 1})
     level: number;
 
+    @OneToOne(type => LocomotiveType)
+    @JoinColumn()
+    type: LocomotiveType
+
     @ManyToOne(type => User, user => user.locomotives)
     user: User;
 
@@ -19,3 +23,5 @@ export class Locomotive {
     @OneToMany(type => Item, item => item.locomotive)
     items: Item[]
 }
+
+export * from './LocomotiveType'

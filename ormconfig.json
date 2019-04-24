@@ -6,10 +6,13 @@
   "database": "sod",
   "synchronize": false,
   "port": 5432,
+  "logging": ["query"],
   "entities": [
     "database/models/**/*.ts"
   ],
-  "migrations": ["migration/*.ts"],
+  "migrations": [
+    "migration/*.ts"
+  ],
   "cli": {
     "migrationsDir": "migration"
   }

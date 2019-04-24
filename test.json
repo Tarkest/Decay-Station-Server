@@ -1,22 +1,22 @@
 {
-  "Id": 0,
-  "Nickname": "",
-  "Lvl": 0,
-  "AccountExperience": 0,
-  "GoogleKey": "",
-  "AccountKey": "",
-  "NPCs": [
+  //"Id": 0,
+ // "Nickname": "",
+ // "Lvl": 0,
+ // "AccountExperience": 0,
+  //"GoogleKey": "",
+ // "AccountKey": "",
+  /*"NPCs": [
     {
-      "Id": 0,
-      "AccountId": 0,
-      "Name": "",
-      "Specialization": 0,
-      "Strength": 0,
-      "Intelligence": 0,
-      "Agility": 0,
-      "InstanceName": "",
-      "ServerTypeIndex": 0,
-      "Items": [
+     // "Id": 0,
+     // "AccountId": 0,
+     // "Name": "",
+     // "Specialization": 0,
+      //"Strength": 0,
+     // "Intelligence": 0,
+     // "Agility": 0,
+     // "InstanceName": "",
+     // "ServerTypeIndex": 0,
+      *//*"Items": [
         {
           "Id": 0,
           "LocomotiveId": 0,
@@ -27,23 +27,23 @@
           "Amount": 0,
           "SlotNumber": 0
         }
-      ]
+      ]*//*
     }
-  ],
+  ],*/
   "Locomotive": {
-    "Id": 0,
-    "AccountId": 0,
-    "LocomotiveLvl": 0,
-    "InstanceName": "",
-    "ServerTypeIndex": 0,
+    //"Id": 0,
+   // "AccountId": 0,
+    //"LocomotiveLvl": 0,
+    //"InstanceName": "",
+    //"ServerTypeIndex": 0,
     "OuterBuildings": [
       {
-        "Id": 0,
-        "LocomotiveId": 0,
-        "CarriageId": 0,
-        "Name": "",
-        "ServerTypeIndex": 0,
-        "Index": 0,
+      //  "Id": 0,
+       // "LocomotiveId": 0,
+       // "CarriageId": 0,
+       // "Name": "",
+       // "ServerTypeIndex": 0,
+       // "Index": 0,
         "CurrentStamp": {
           "Id": 0,
           "BuildingId": 0,

@@ -1,5 +1,5 @@
 import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from "typeorm";
-import {Locomotive, Carriage} from '../'
+import {Locomotive, Carriage, Character} from '../'
 
 @Entity('Users')
 export class User {
@@ -7,13 +7,19 @@ export class User {
     id: number;
 
     @Column()
-    name: string;
+    nickname: string;
 
     @Column()
     googleApiKey: string;
 
     @Column()
+    accountKey: string;
+
+    @Column()
     level: string;
+
+    @Column()
+    accountExperience: number;
 
     @Column()
     isDeleted: boolean;
@@ -23,4 +29,7 @@ export class User {
 
     @OneToMany(type => Carriage, carriage => carriage.user)
     carriages: Carriage[];
+
+    @OneToMany(type => Character, ch => ch.user)
+    characters: Character[];
 }

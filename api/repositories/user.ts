@@ -1,18 +1,14 @@
 import {User} from "../../database/models";
-import {EntityRepository, getCustomRepository, Repository} from "typeorm";
+import {EntityRepository, getCustomRepository, Repository, In} from "typeorm";
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
     oneWithTrain(id) {
-        return this.findOne(id, {
+        return this.find({
             relations: [
                 'carriages',
-                'carriages.buildings',
-                'carriages.buildings.type',
                 'locomotives',
-                'locomotives.buildings',
-                'locomotives.buildings.type',
-            ]
+            ],
         })
     }
 }
