@@ -10,7 +10,7 @@ export class Locomotive {
     @Column({default: 1})
     level: number;
 
-    @OneToOne(type => LocomotiveType)
+    @OneToOne(type => LocomotiveType, {nullable: false})
     @JoinColumn()
     type: LocomotiveType
 

@@ -8,37 +8,18 @@ export class UserController implements IController {
     routeParams: Array<ServerRoute> = [
         {
             method: "GET",
-            path: "/api/users",
-            handler: this.getAll.bind(this)
-        },
-        {
-            method: "POST",
-            path: "/api/users",
-            handler: this.create.bind(this)
-        },
-        {
-            method: "GET",
             path: "/api/users/{id}",
             handler: this.getOne.bind(this)
         },
         {
-            method: "DELETE",
-            path: "/api/users/{id}",
-            handler: this.delete.bind(this)
-        },
-        {
             method: "GET",
-            path: "/api/users/{id}/orders",
-            handler: this.getOneWithOrders.bind(this)
-        },
+            path: "/api/users/{id}/info",
+            handler: this.getInfo.bind(this)
+        }
     ];
 
     constructor(server) {
         server.route(this.routeParams)
-    }
-
-    async getAll(r, h) {
-
     }
 
     async getOne(r, h) {
@@ -50,7 +31,17 @@ export class UserController implements IController {
         }
     }
 
-    async getOneWithOrders(r, h) {
+    async getInfo(r, h) {
+        const {id} = r.params;
+        try {
+            return await this.service.getAlluserInfo(id);
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    async getAll(r, h) {
+
     }
 
     async create(r: Request, h) {

@@ -21,11 +21,11 @@ export class Character extends BaseIdNameEntity {
     @OneToMany(type => Item, item => item.character)
     items: Item[];
 
-    @OneToOne(type => CharacterType)
+    @OneToOne(type => CharacterType, {nullable: false})
     @JoinColumn()
     type: CharacterType;
 
-    @OneToOne(type => CharacterSpecialization)
+    @OneToOne(type => CharacterSpecialization, {nullable: false})
     @JoinColumn()
     specialization: CharacterSpecialization;
 }

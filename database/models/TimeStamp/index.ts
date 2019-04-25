@@ -20,15 +20,15 @@ export class TimeStamp {
     @Column()
     itemsCapacity: number;
 
-    @OneToOne(type => TimeStampType)
+    @OneToOne(type => TimeStampType, {nullable: false})
     @JoinColumn()
     type: TimeStampType
 
-    @OneToOne(type => Item)
+    @OneToOne(type => Item, {nullable: false})
     @JoinColumn()
     item: Item
 
-    @OneToOne(type => Recipe)
+    @OneToOne(type => Recipe, {nullable: false})
     @JoinColumn()
     recipe: Recipe
 }

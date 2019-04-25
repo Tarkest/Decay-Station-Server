@@ -11,12 +11,12 @@ export class Carriage extends BaseIdNameEntity {
     user: User;
 
     @OneToMany(type => TrainBuilding, building => building.carriage)
-    buildings: TrainBuilding[]
+    buildings: TrainBuilding[];
 
     @OneToMany(type => Item, item => item.carriage)
-    items: Item[]
+    items: Item[];
 
-    @OneToOne(type => CarriageType)
+    @OneToOne(type => CarriageType, {nullable: false})
     @JoinColumn()
     type: CarriageType;
 }

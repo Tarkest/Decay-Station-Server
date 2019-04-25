@@ -5,11 +5,15 @@ import {UserRepository} from '../../repositories/user'
 export default class UserService {
     private repo = getCustomRepository(UserRepository);
 
-    async getUser(id: number): Promise<any> {
+    async getAlluserInfo(id: number): Promise<any> {
         try {
-            return await this.repo.oneWithTrain(id);
+            return await this.repo.oneWithDependencies(id);
         } catch (e) {
             console.log(e);
         }
+    }
+
+    async getUser(id: number) {
+        return this.repo.findOne(id)
     }
 }
