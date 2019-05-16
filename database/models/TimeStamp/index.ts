@@ -1,4 +1,4 @@
-import {Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, ManyToOne} from "typeorm";
 import {TimeStampType} from "./TimeStampType";
 import {Item} from "../Item";
 import {Recipe} from "../Recipe";
@@ -20,7 +20,7 @@ export class TimeStamp {
     @Column()
     itemsCapacity: number;
 
-    @OneToOne(type => TimeStampType, {nullable: false})
+    @ManyToOne(type => TimeStampType, {nullable: false})
     @JoinColumn()
     type: TimeStampType
 

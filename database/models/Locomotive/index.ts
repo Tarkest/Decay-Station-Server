@@ -10,8 +10,7 @@ export class Locomotive {
     @Column({default: 1})
     level: number;
 
-    @OneToOne(type => LocomotiveType, {nullable: false})
-    @JoinColumn()
+    @ManyToOne(type => LocomotiveType, {nullable: false})
     type: LocomotiveType
 
     @ManyToOne(type => User, user => user.locomotives)

@@ -1,5 +1,4 @@
 import {getCustomRepository} from "typeorm";
-import {User} from "../../../database/models";
 import {UserRepository} from '../../repositories/user'
 
 export default class UserService {

@@ -29,7 +29,6 @@ export class User {
 
     @OneToMany(type => Carriage, carriage => carriage.user)
     carriages: Carriage[];
-
     @OneToMany(type => Character, ch => ch.user)
     characters: Character[];
 }
