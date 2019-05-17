@@ -13,7 +13,12 @@ export class Locomotive {
     @ManyToOne(type => LocomotiveType, {nullable: false})
     type: LocomotiveType
 
+    @Column({nullable: false})
+    userId: number;
+
     @ManyToOne(type => User, user => user.locomotives)
+
+    @JoinColumn({name: 'userId'})
     user: User;
 
     @OneToMany(type => TrainBuilding, tb => tb.locomotive)

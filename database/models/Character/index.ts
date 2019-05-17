@@ -15,7 +15,7 @@ export class Character extends BaseIdNameEntity {
     @Column()
     intelligence: number;
 
-    @ManyToOne(type => User, u => u.characters)
+    @ManyToOne(type => User, u => u.characters, {nullable: false})
     user: User;
 
     @OneToMany(type => Item, item => item.character)

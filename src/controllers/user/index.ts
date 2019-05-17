@@ -1,4 +1,4 @@
-import {Router, Application} from 'express'
+import {Router} from 'express'
 import UserService from "../../services/user";
 
 const userChecker = (req, res, next) => {

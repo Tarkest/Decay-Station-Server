@@ -1,29 +1,29 @@
 import {Router,} from 'express'
-import CarriageService from "../../services/carriage";
+import LocomotiveService from "../../services/locomotive";
 
 const userChecker = (req, res, next) => {
     req.userId = 1;
     next()
 };
 
-export class CarriageController {
+export class LocomotiveController {
     public router = Router();
-    private service = new CarriageService();
+    private service = new LocomotiveService();
 
     constructor() {
-        this.router.use('/', userChecker);
+        this.router.use(userChecker);
         this.router.get('/', this.getUnits.bind(this));
+        this.router.get('/:id/inventory', this.getItems.bind(this));
         this.router.post('/', this.addUnit.bind(this));
-        this.router.get('/:id/inventory', this.getItems.bind(this))
     }
 
     async addUnit(req, res, next) {
         const {body, userId} = req;
         try {
-            res.send(await this.service.createCarriage(body, userId))
+            res.send(await this.service.createLocomotive(body, userId))
         }
         catch (e) {
-            res.status(500).send(e.message)
+            res.send(e)
         }
     }
 

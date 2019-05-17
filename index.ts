@@ -3,9 +3,14 @@ import {createConnection} from 'typeorm'
 import * as Express from 'express';
 //middleWares
 
-import {UserController} from './src/controllers';
-import {CarriageController} from "./src/controllers/carriage";
 import bodyParser = require("body-parser");
+import {
+    LocomotiveController,
+    UserController,
+    CarriageController,
+    ItemController
+}
+    from './src/controllers';
 
 class App {
     app: Express.Application = Express();
@@ -19,6 +24,7 @@ class App {
                 this.app.use(bodyParser.json());
                 this.app.use('/api/users', new UserController().router);
                 this.app.use('/api/carriages', new CarriageController().router);
+                this.app.use('/api/locomotives', new LocomotiveController().router)
             })
             .catch(console.log)
     }
