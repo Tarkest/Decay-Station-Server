@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --watch './**/*.ts' --ignore 'src/**/*.spec.ts' --exec ts-node index.ts",
+    "d": "nodemon --inspect './**/*.ts' --ignore 'src/**/*.spec.ts' --exec ts-node index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "debug": "tsc && node-debug index.js",
     "build": "tsc"
@@ -13,13 +14,16 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "hapi": "^18.1.0",
+    "commander": "^2.20.0",
     "recursive-readdir-sync": "^1.0.6"
   },
   "dependencies": {
+    "@types/express": "^4.16.1",
     "@types/hapi": "^18.0.1",
     "@types/node": "^11.11.5",
+    "body-parser": "^1.19.0",
     "boom": "^7.3.0",
+    "express": "^4.16.4",
     "joi": "^14.3.1",
     "mysql": "^2.16.0",
     "pg": "^7.9.0",

@@ -1,34 +1,34 @@
-import * as hapi from 'hapi'
 import 'reflect-metadata'
 import {createConnection} from 'typeorm'
-import * as Controllers from './api/controllers'
+import * as Express from 'express';
+//middleWares
 
-const start = async function () {
-    try {
-        await server.start();
-        Object.keys(Controllers).map(c => {
-                const controller = Controllers[c];
-                new controller(server)
-            }
-        )
+import bodyParser = require("body-parser");
+import {
+    LocomotiveController,
+    UserController,
+    CarriageController,
+    ItemController
+}
+    from './src/controllers';
+
+class App {
+    app: Express.Application = Express();
+
+    constructor() {
+        createConnection()
+            .then(_ => {
+                this.app.listen(3000, () => {
+                    console.log('server running on 3000');
+                });
+                this.app.use(bodyParser.json());
+                this.app.use('/api/users', new UserController().router);
+                this.app.use('/api/carriages', new CarriageController().router);
+                this.app.use('/api/locomotives', new LocomotiveController().router)
+            })
+            .catch(console.log)
     }
-    catch (err) {
-        console.log(err);
-        process.exit(1);
-    }
+}
 
-    console.log('Server running at:', server.info.uri);
-};
-
-createConnection()
-    .then(async () => {
-        await start();
-    })
-    .catch(console.error);
-
-const server: hapi.Server = new hapi.Server({
-    host: 'localhost',
-    port: 9000
-});
-
+new App();
 

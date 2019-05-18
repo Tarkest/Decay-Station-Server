@@ -15,17 +15,17 @@ export class Character extends BaseIdNameEntity {
     @Column()
     intelligence: number;
 
-    @ManyToOne(type => User, u => u.characters)
+    @ManyToOne(type => User, u => u.characters, {nullable: false})
     user: User;
 
     @OneToMany(type => Item, item => item.character)
     items: Item[];
 
-    @OneToOne(type => CharacterType, {nullable: false})
+    @ManyToOne(type => CharacterType, {nullable: false})
     @JoinColumn()
     type: CharacterType;
 
-    @OneToOne(type => CharacterSpecialization, {nullable: false})
+    @ManyToOne(type => CharacterSpecialization, {nullable: false})
     @JoinColumn()
     specialization: CharacterSpecialization;
 }

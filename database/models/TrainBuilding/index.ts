@@ -7,7 +7,7 @@ export class TrainBuilding extends BaseIdNameEntity {
     @Column({default: 'false'})
     isOuter: boolean;
 
-    @OneToOne(type => TrainBuildingType)
+    @ManyToOne(type => TrainBuildingType)
     @JoinColumn()
     type: TrainBuildingType;
 

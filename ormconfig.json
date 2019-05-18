@@ -1,10 +1,10 @@
 {
   "type": "postgres",
   "host": "localhost",
-  "username": "myuser",
-  "password": "myuserpassword",
-  "database": "sod",
-  "synchronize": false,
+  "username": "admin",
+  "password": "root",
+  "database": "admin",
+  "synchronize": true,
   "port": 5432,
   "logging": ["query"],
   "entities": [
