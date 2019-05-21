@@ -4,14 +4,14 @@ import {CarriageType} from "../../../database/models/Carriage";
 import ItemService from "../item";
 import {inventoryName} from '../../constants'
 
-
 export default class CarriageService {
     repository = getCustomRepository(CarriageRepository);
 
     async createCarriage({name, typeId}, userId) {
         const type = await CarriageType.findOne({id: typeId});
         if (type) {
-            return this.repository.save({name: 'test', type, userId})
+            const order = await this.repository.getMaxOrder(userId);
+            return this.repository.save({name, type, userId, order: order[0].max + 1})
         } else {
             throw new Error('Type does not exist')
         }

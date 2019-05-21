@@ -1,5 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from "typeorm";
-import {Locomotive, Carriage, Character} from '../'
+import {Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne, JoinColumn, ManyToOne} from "typeorm";
+import {Locomotive, Carriage, Character, Zone} from '../'
 
 @Entity('Users')
 export class User {
@@ -16,7 +16,7 @@ export class User {
     accountKey: string;
 
     @Column()
-    level: string;
+    level: number;
 
     @Column()
     accountExperience: number;
@@ -31,4 +31,13 @@ export class User {
     carriages: Carriage[];
     @OneToMany(type => Character, ch => ch.user)
     characters: Character[];
+
+    @Column({default: 1})
+    zoneId: number;
+
+    @ManyToOne(type => Zone)
+    @JoinColumn({name: "zoneId"})
+    currentZone: Zone
 }
+
+export * from './Zone'

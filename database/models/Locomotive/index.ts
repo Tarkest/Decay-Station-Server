@@ -10,6 +10,12 @@ export class Locomotive {
     @Column({default: 1})
     level: number;
 
+    @Column()
+    experience: number;
+
+    @Column({nullable: false})
+    name: string;
+
     @ManyToOne(type => LocomotiveType, {nullable: false})
     type: LocomotiveType
 

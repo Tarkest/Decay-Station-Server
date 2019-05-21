@@ -10,6 +10,9 @@ export class Carriage extends BaseIdNameEntity {
     @Column({nullable: false})
     userId: number;
 
+    @Column({nullable: false, default: 1})
+    order: number;
+
     @ManyToOne(type => User, user => user.carriages)
     @JoinColumn({name: 'userId'})
     user: User;
@@ -24,4 +27,4 @@ export class Carriage extends BaseIdNameEntity {
     type: CarriageType
 }
 
-export * from './CarriageType'
+export * from './CarriageType';

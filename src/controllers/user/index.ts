@@ -14,14 +14,30 @@ export class UserController {
         const {router} = this;
         router.use('/', userChecker);
         router.get('/info', this.getAllInfo.bind(this))
+        router.get('/inventory', this.getAllInventories.bind(this))
+        router.post('/levelup', this.levelup.bind(this))
     }
 
     async getAllInfo(req, res, next) {
         const {userId} = req;
         try {
-            res.send(await this.service.getAlluserInfo(userId))
+            res.send(await this.service.getAllUserInfo(userId))
         } catch (e) {
             res.send(e)
+        }
+    }
+
+    async getAllInventories(req, res, next) {
+        const {userId} = req;
+        res.send(await this.service.getAllInventories(userId))
+    }
+
+    async levelup(req, res, next) {
+        const {userId} = req;
+        try {
+            res.send(await this.service.levelUp(userId))
+        } catch (e) {
+            res.status(400).send(e.message);
         }
     }
 

@@ -9,6 +9,7 @@ export class UserRepository extends Repository<User> {
                 id
             },
             relations: [
+                'currentZone',
                 'carriages',
                 'carriages.type',
                 'carriages.items',
@@ -22,6 +23,24 @@ export class UserRepository extends Repository<User> {
                 'characters',
                 'characters.type',
                 'characters.specialization',
+                'characters.items',
+                'characters.paramsExperience'
+            ],
+        })
+    }
+
+    userInventories(id) {
+        return this.findOne({
+            where: {
+                id
+            },
+            select: ['id'],
+            relations: [
+                'carriages',
+                'carriages.items',
+                'locomotives',
+                'locomotives.items',
+                'characters',
                 'characters.items',
             ],
         })

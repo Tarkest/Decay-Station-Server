@@ -3,6 +3,7 @@ import {BaseIdNameEntity} from "../_BaseEntities/BaseIdNameEntity";
 import {User} from "../User";
 import {Item} from "../Item";
 import {CharacterSpecialization, CharacterType} from '../'
+import {ParametersExperience} from "./ParametersExperience";
 
 @Entity('Characters')
 export class Character extends BaseIdNameEntity {
@@ -28,7 +29,12 @@ export class Character extends BaseIdNameEntity {
     @ManyToOne(type => CharacterSpecialization, {nullable: false})
     @JoinColumn()
     specialization: CharacterSpecialization;
+
+    @ManyToOne(type => ParametersExperience)
+    @JoinColumn()
+    paramsExperience:ParametersExperience
 }
 
 export * from './CharacterSpecialization'
 export * from './CharacterType'
+export * from './ParametersExperience'
