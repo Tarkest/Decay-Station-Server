@@ -1,10 +1,10 @@
-import {Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, ManyToOne} from "typeorm";
+import {Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, ManyToOne, BaseEntity} from "typeorm";
 import {TimeStampType} from "./TimeStampType";
 import {Item} from "../Item";
 import {Recipe} from "../Recipe";
 
 @Entity('TimeStamps')
-export class TimeStamp {
+export class TimeStamp extends BaseEntity{
     @PrimaryGeneratedColumn()
     id: number;
 

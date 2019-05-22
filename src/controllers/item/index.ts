@@ -22,7 +22,6 @@ export class ItemController {
                 await this.service.replaceItem(from, to);
                 res.send({success: true});
             } catch (e) {
-                console.log(e.message);
                 res.sendStatus(500)
             }
         }

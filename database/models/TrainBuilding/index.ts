@@ -1,4 +1,4 @@
-import {PrimaryGeneratedColumn, Entity, OneToOne, JoinColumn, ManyToOne, Column} from "typeorm";
+import { Entity, OneToOne, JoinColumn, ManyToOne, Column} from "typeorm";
 import {Carriage, Locomotive, TimeStamp, TrainBuildingType} from '../'
 import {BaseIdNameEntity} from "../_BaseEntities/BaseIdNameEntity";
 
@@ -11,7 +11,7 @@ export class TrainBuilding extends BaseIdNameEntity {
     @JoinColumn()
     type: TrainBuildingType;
 
-    @OneToOne(type => TimeStamp)
+    @OneToOne(type => TimeStamp, {onDelete: "SET NULL"})
     @JoinColumn()
     currentStamp: TimeStamp;
 

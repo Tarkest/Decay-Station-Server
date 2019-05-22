@@ -6,7 +6,6 @@
   "database": "admin",
   "synchronize": true,
   "port": 5432,
-  "logging": ["query"],
   "entities": [
     "database/models/**/*.ts"
   ],

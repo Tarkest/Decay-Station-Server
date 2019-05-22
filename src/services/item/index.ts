@@ -10,11 +10,9 @@ export default class ItemService {
         const itemFrom = await Item.findOne({where: {cellId: from}});
         const itemTo = await Item.findOne({where: {cellId: to}});
         if (itemTo) {
-            const updatedToItem = await Item.update({id: itemTo.id}, {...itemTo, cellId: itemFrom.cellId});
-            console.log(updatedToItem);
+            await Item.update({id: itemTo.id}, {...itemTo, cellId: from});
         }
-        const fromItemUpdated = await Item.update({id: itemFrom.id}, {...itemFrom, cellId: to});
-        console.log(fromItemUpdated);
+        await Item.update({id: itemFrom.id}, {...itemFrom, cellId: to});
         return {success: true}
     }
 }

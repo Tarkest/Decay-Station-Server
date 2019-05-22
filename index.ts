@@ -8,7 +8,8 @@ import {
     LocomotiveController,
     UserController,
     CarriageController,
-    ItemController
+    ItemController,
+    BuildingController
 }
     from './src/controllers';
 
@@ -24,8 +25,9 @@ class App {
                 this.app.use(bodyParser.json());
                 this.app.use('/api/user', new UserController().router);
                 this.app.use('/api/carriages', new CarriageController().router);
-                this.app.use('/api/locomotives', new LocomotiveController().router)
-                this.app.use('/api/items', new ItemController().router)
+                this.app.use('/api/locomotives', new LocomotiveController().router);
+                this.app.use('/api/items', new ItemController().router);
+                this.app.use('/api/buildings', new BuildingController().router);
             })
             .catch(console.log)
     }
