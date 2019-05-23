@@ -1,22 +1,13 @@
-import {Router,} from 'express'
 import CarriageService from "../../services/carriage";
+import {Controller, GET, POST} from "../../sharedUtilities/decorators";
 
-const userChecker = (req, res, next) => {
-    req.userId = 1;
-    next()
-};
 
+
+@Controller('/api/carriages')
 export class CarriageController {
-    public router = Router();
     private service = new CarriageService();
 
-    constructor() {
-        this.router.use('/', userChecker);
-        this.router.get('/', this.getUnits.bind(this));
-        this.router.post('/', this.addUnit.bind(this));
-        this.router.get('/:id/inventory', this.getItems.bind(this))
-    }
-
+    @POST('/')
     async addUnit(req, res, next) {
         const {body, userId} = req;
         try {
@@ -27,11 +18,13 @@ export class CarriageController {
         }
     }
 
+    @GET('/')
     async getUnits(req, res, next) {
         const {userId} = req;
         res.send(await this.service.getUserCarriages(userId))
     }
 
+    @GET('/:id/inventory')
     async getItems(req, res, next) {
         const {id} = req.params;
         res.send(await this.service.getItems(id))

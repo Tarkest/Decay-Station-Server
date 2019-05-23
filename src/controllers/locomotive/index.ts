@@ -1,25 +1,11 @@
-import {Router,} from 'express'
 import LocomotiveService from "../../services/locomotive";
+import {Controller, GET, POST, PUT} from "../../sharedUtilities/decorators";
 
-const userChecker = (req, res, next) => {
-    req.userId = 1;
-    next()
-};
-
+@Controller('/api/locomotives')
 export class LocomotiveController {
-    public router = Router();
     private service = new LocomotiveService();
 
-    constructor() {
-        this.router.use(userChecker);
-        this.router.get('/', this.getUnits.bind(this));
-        this.router.post('/', this.addUnit.bind(this));
-        this.router.put('/:id', this.updateUnit.bind(this));
-        this.router.get('/:id/inventory', this.getItems.bind(this));
-        this.router.get('/:id/buildings', this.getBuildings.bind(this))
-        this.router.post('/levelup', this.levelup.bind(this))
-    }
-
+    @POST('/')
     async addUnit(req, res, next) {
         const {body, userId} = req;
         try {
@@ -30,26 +16,31 @@ export class LocomotiveController {
         }
     }
 
+    @GET('/')
     async getUnits(req, res, next) {
         const {userId} = req;
         res.send(await this.service.getUserCarriages(userId))
     }
 
+    @GET('/:id/inventory')
     async getItems(req, res, next) {
         const {id} = req.params;
         res.send(await this.service.getItems(id))
     }
 
+    @POST('/levelup')
     async levelup(req, res, next) {
         const {userId} = req;
         this.service.levelup(userId)
     }
 
+    @PUT('/:id')
     async updateUnit(req, res, next) {
         const {id} = req.params;
         res.send(await this.service.update(req.body, id))
     }
 
+    @GET('/:id/buildings')
     async getBuildings(req, res, next) {
         const {id} = req.params;
         res.send(await this.service.getLocomotiveBuildings(id))

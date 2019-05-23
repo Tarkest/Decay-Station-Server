@@ -17,7 +17,7 @@ export default class UserService {
                     .map(carriage => ({...carriage, ...splitBuildings(carriage.buildings)}))
             }
         } catch (e) {
-            console.log(e);
+            throw e;
         }
     }
 
