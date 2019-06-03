@@ -1,9 +1,8 @@
-import * as moment from 'moment'
+import * as moment from 'moment';
 import {Item, Recipe, TimeStamp, TimeStampType} from "../../../database/models";
-import {getRepository} from "typeorm";
 
 export class TimeStampService {
-    static async create({itemId, itemsCapacity, recipeId}) {
+    public static async create({itemId, itemsCapacity, recipeId}) {
         const stamp = new TimeStamp();
         stamp.item = await Item.findOne(itemId);
         stamp.type = await TimeStampType.findOne(1);

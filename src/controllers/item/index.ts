@@ -1,28 +1,27 @@
-import {Router} from 'express'
 import ItemService from "../../services/item";
+import {Controller, POST} from "../../sharedUtilities/decorators";
+import {object, number} from 'joi';
+import {validatorMiddleware} from '../../middlewares';
 
-const userChecker = (req, res, next) => {
-    req.userId = 1;
-    next()
-};
+const replaceSchema = object({
+    from: number().integer(),
+    to: number().integer(),
+});
 
+@Controller('/api/items')
 export class ItemController {
-    public router = Router();
-    private service = new ItemService();
-
-    constructor() {
-        const {router} = this;
-        router.post('/replace', this.replace.bind(this))
-    }
-
-    async replace(req, res, next) {
+    @POST({
+        path: '/replace',
+        middlewares: [validatorMiddleware(replaceSchema)],
+    })
+    private async replace(req, res) {
         const {from, to} = req.body;
         if (from && to) {
             try {
-                await this.service.replaceItem(from, to);
+                await ItemService.replaceItem(from, to);
                 res.send({success: true});
             } catch (e) {
-                res.sendStatus(500)
+                res.sendStatus(500);
             }
         }
     }

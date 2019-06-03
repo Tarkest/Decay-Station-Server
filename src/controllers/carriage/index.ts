@@ -1,39 +1,31 @@
-import {Router,} from 'express'
 import CarriageService from "../../services/carriage";
+import {Controller, GET, POST} from "../../sharedUtilities/decorators";
+import {validatorMiddleware} from "../../middlewares";
+import {addCarriage} from "./validationSchemas";
 
-const userChecker = (req, res, next) => {
-    req.userId = 1;
-    next()
-};
-
+@Controller('/api/carriages')
 export class CarriageController {
-    public router = Router();
     private service = new CarriageService();
 
-    constructor() {
-        this.router.use('/', userChecker);
-        this.router.get('/', this.getUnits.bind(this));
-        this.router.post('/', this.addUnit.bind(this));
-        this.router.get('/:id/inventory', this.getItems.bind(this))
-    }
-
-    async addUnit(req, res, next) {
+    @POST({path: '/', middlewares: [validatorMiddleware(addCarriage)]})
+    public async addUnit(req, res) {
         const {body, userId} = req;
         try {
-            res.send(await this.service.createCarriage(body, userId))
-        }
-        catch (e) {
-            res.status(500).send(e.message)
+            res.send(await this.service.createCarriage(body, userId));
+        } catch (e) {
+            res.status(500).send(e.message);
         }
     }
 
-    async getUnits(req, res, next) {
+    @GET({path: '/'})
+    public async getUnits(req, res) {
         const {userId} = req;
-        res.send(await this.service.getUserCarriages(userId))
+        res.send(await this.service.getUserCarriages(userId));
     }
 
-    async getItems(req, res, next) {
+    @GET({path: '/:}id/inventory'})
+    public async getItems(req, res) {
         const {id} = req.params;
-        res.send(await this.service.getItems(id))
+        res.send(await this.service.getItems(id));
     }
 }

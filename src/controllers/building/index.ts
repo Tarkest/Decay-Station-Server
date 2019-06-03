@@ -1,28 +1,19 @@
-import {Router} from 'express'
+import {validatorMiddleware} from '../../middlewares';
 import BuildingService from "../../services/building";
+import {Controller, GET, POST} from "../../sharedUtilities/decorators";
+import {addActionSchema} from "./validationSchemas";
 
-const userChecker = (req, res, next) => {
-    req.userId = 1;
-    next()
-};
-
+@Controller('/api/buildings')
 export class BuildingController {
-    public router = Router();
-
-    constructor() {
-        const {router} = this;
-        router.use('/', userChecker);
-        router.post('/:id/addAction', this.addAction.bind(this));
-        router.get('/:id/status', this.status.bind(this));
-    }
-
-    async addAction(req, res) {
+    @POST({path: '/:id/addAction', middlewares: [validatorMiddleware(addActionSchema)]})
+    public async addAction(req, res) {
         const {id} = req.params;
         res.send(await BuildingService.addAction(id, req.body));
     }
 
-    async status(req, res) {
+    @GET({path: '/:id/status'})
+    public async status(req, res) {
         const {id} = req.params;
-        res.send(await BuildingService.checkStatus(id))
+        res.send(await BuildingService.checkStatus(id));
     }
 }
