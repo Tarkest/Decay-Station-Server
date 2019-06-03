@@ -1,19 +1,27 @@
 import ItemService from "../../services/item";
 import {Controller, POST} from "../../sharedUtilities/decorators";
+import {object, number} from 'joi';
+import {validatorMiddleware} from '../../middlewares';
+
+const replaceSchema = object({
+    from: number().integer(),
+    to: number().integer(),
+});
 
 @Controller('/api/items')
 export class ItemController {
-    private service = new ItemService();
-
-    @POST('/replace')
-    async replace(req, res, next) {
+    @POST({
+        path: '/replace',
+        middlewares: [validatorMiddleware(replaceSchema)],
+    })
+    private async replace(req, res) {
         const {from, to} = req.body;
         if (from && to) {
             try {
-                await this.service.replaceItem(from, to);
+                await ItemService.replaceItem(from, to);
                 res.send({success: true});
             } catch (e) {
-                res.sendStatus(500)
+                res.sendStatus(500);
             }
         }
     }

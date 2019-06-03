@@ -1,6 +1,6 @@
 {
-  "name": "hapi-w",
-  "version": "1.0.0",
+  "name": "decay-station-api",
+  "version": "2.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -14,6 +14,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/joi": "^14.3.3",
     "commander": "^2.20.0",
     "recursive-readdir-sync": "^1.0.6"
   },

@@ -1,17 +1,19 @@
+import {validatorMiddleware} from '../../middlewares';
 import BuildingService from "../../services/building";
 import {Controller, GET, POST} from "../../sharedUtilities/decorators";
+import {addActionSchema} from "./validationSchemas";
 
 @Controller('/api/buildings')
 export class BuildingController {
-    @POST('/:id/addAction')
-    async addAction(req, res) {
+    @POST({path: '/:id/addAction', middlewares: [validatorMiddleware(addActionSchema)]})
+    public async addAction(req, res) {
         const {id} = req.params;
         res.send(await BuildingService.addAction(id, req.body));
     }
 
-    @GET('/:id/status')
-    async status(req, res) {
+    @GET({path: '/:id/status'})
+    public async status(req, res) {
         const {id} = req.params;
-        res.send(await BuildingService.checkStatus(id))
+        res.send(await BuildingService.checkStatus(id));
     }
 }

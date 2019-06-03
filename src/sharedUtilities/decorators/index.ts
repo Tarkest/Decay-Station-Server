@@ -1,9 +1,10 @@
-import {setupMethod, setupController} from './helpers'
+import {setupMethod, setupController} from './helpers';
+import {decorators} from "./method";
+import IMethodDecoratorOptions = decorators.IMethodDecoratorOptions;
 
 export const Controller = setupController;
 
-export const GET = path => setupMethod('get')(path);
-export const POST = path => setupMethod('post')(path);
-export const PUT = path => setupMethod('put')(path);
-export const DELETE = path => setupMethod('delete')(path);
-
+export const GET = (options: IMethodDecoratorOptions) => setupMethod('get')(options);
+export const POST = (options: IMethodDecoratorOptions) => setupMethod('post')(options);
+export const PUT = (options: IMethodDecoratorOptions) => setupMethod('put')(options);
+export const DELETE = (options: IMethodDecoratorOptions) => setupMethod('delete')(options);

@@ -5,27 +5,27 @@ import {Controller, GET, POST} from "../../sharedUtilities/decorators";
 export class UserController {
     private service = new UserService();
 
-    @GET('/info')
-    async getAllInfo(req, res, next) {
+    @GET({path: '/info'})
+    public async getAllInfo(req, res) {
         const {userId} = req;
         try {
             res.send(await this.service.getAllUserInfo(userId));
         } catch (e) {
-            res.send(e)
+            res.send(e);
         }
     }
 
-    @GET('/inventory')
-    async getAllInventories(req, res, next) {
+    @GET({path: '/inventory'})
+    public async getAllInventories(req, res) {
         const {userId} = req;
-        res.send(await this.service.getAllInventories(userId))
+        res.send(await this.service.getAllInventories(userId));
     }
 
-    @POST('/levelup')
-    async levelup(req, res, next) {
+    @POST({path: '/levelup'})
+    public async levelup(req, res) {
         const {userId} = req;
         try {
-            res.send(await this.service.levelUp(userId))
+            res.send(await this.service.levelUp(userId));
         } catch (e) {
             res.status(400).send(e.message);
         }

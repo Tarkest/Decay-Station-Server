@@ -1,7 +1,8 @@
-import 'reflect-metadata'
-import {createConnection} from 'typeorm'
+/* tslint:disable */
+import 'reflect-metadata';
+import {createConnection} from 'typeorm';
 import * as Express from 'express';
-//middleWares
+// middleWares
 
 const userChecker = (req, res, next) => {
     req.userId = 1;
@@ -30,4 +31,3 @@ class App {
 }
 
 new App();
-

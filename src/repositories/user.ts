@@ -1,13 +1,10 @@
 import {User} from "../../database/models";
-import {EntityRepository, getCustomRepository, Repository, In} from "typeorm";
+import {EntityRepository, Repository} from "typeorm";
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
-    oneWithDependencies(id) {
+    public oneWithDependencies(id) {
         return this.findOne({
-            where: {
-                id
-            },
             relations: [
                 'currentZone',
                 'carriages',
@@ -24,17 +21,16 @@ export class UserRepository extends Repository<User> {
                 'characters.type',
                 'characters.specialization',
                 'characters.items',
-                'characters.paramsExperience'
+                'characters.paramsExperience',
             ],
-        })
+            where: {
+                id,
+            },
+        });
     }
 
-    userInventories(id) {
+    public userInventories(id) {
         return this.findOne({
-            where: {
-                id
-            },
-            select: ['id'],
             relations: [
                 'carriages',
                 'carriages.items',
@@ -43,7 +39,10 @@ export class UserRepository extends Repository<User> {
                 'characters',
                 'characters.items',
             ],
-        })
+            select: ['id'],
+            where: {
+                id,
+            },
+        });
     }
 }
-
