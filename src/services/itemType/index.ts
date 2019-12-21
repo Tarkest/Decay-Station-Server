@@ -5,9 +5,11 @@ import { ItemsType } from "../../../database/models/Constants";
 import ConstatntsService from "../constants";
 
 export default class ItemTypeService {
+    //Repositories
     private itemTypeRepository: Repository<ItemType> = getRepository(ItemType);
     private itemTypeBufferRepository: Repository<ItemTypeBuffer> = getRepository(ItemTypeBuffer);
 
+    //Services
     private constantsService: ConstatntsService = new ConstatntsService();
 
     public async createItemType(name: string, maxCount: number, appearenceVersion: string, typeId: number): Promise<ItemType> {
@@ -25,7 +27,7 @@ export default class ItemTypeService {
         let itemType: ItemType = await this.itemTypeRepository.findOne({ where:{ id }, relations: [ "updateBuffer" ] });
         if(!itemType) throw Error("Requested item is not exist");
         const newItemsType: ItemsType = await this.constantsService.getItemsType(typeId);
-        const itemTypeBuffer: ItemTypeBuffer = await this.itemTypeBufferRepository.save({ ...itemType.updateBuffer, name: ItemType.name, maxCount, appearenceVersion, itemType: newItemsType });
+        const itemTypeBuffer: ItemTypeBuffer = await this.itemTypeBufferRepository.save({ ...itemType.updateBuffer, name: ItemType.name, maxCount, appearenceVersion, itemType: newItemsType, currentVersion: itemType });
         return this.itemTypeRepository.save({...itemType, updateBuffer: itemTypeBuffer });
     }
 }

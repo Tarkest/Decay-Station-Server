@@ -22,3 +22,4 @@ export class AdministrationController {
 
 export * from "./locmotiveType";
 export * from "./itemType";
+export * from "./constants";

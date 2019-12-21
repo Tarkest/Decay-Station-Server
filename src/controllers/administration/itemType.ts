@@ -6,10 +6,11 @@ import jwt = require("express-jwt");
 
 @Controller('/api/admin', jwt({ secret: config.jwtSecret }))
 export class ItemType {
+    //Services
     private typeService: TypeService = new TypeService();
 
     @GET({path: '/items'})
-    public async getItems(req: Request, res: Response) {
+    public async getItemsTypes(req: Request, res: Response) {
         try {
             res.send(await this.typeService.getItemsTypes());
         } catch (error) {
@@ -28,7 +29,7 @@ export class ItemType {
     }
 
     @PUT({path: '/items'})
-    public async updateItem(req: Request, res: Response) {
+    public async updateItemType(req: Request, res: Response) {
         try {
             const { id, maxCount, appearenceVersion, typeId } = req.body;
             res.send(await this.typeService.saveUpdateForItemType(id, maxCount, appearenceVersion, typeId));
@@ -38,7 +39,7 @@ export class ItemType {
     }
 
     @DELETE({ path: '/items'})
-    public async deleteItem(req: Request, res: Response) {
+    public async deleteItemType(req: Request, res: Response) {
         try {
 
         } catch (error) {
