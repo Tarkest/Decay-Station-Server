@@ -1,7 +1,9 @@
 /* tslint:disable */
 import 'reflect-metadata';
-import {createConnection} from 'typeorm';
+import { createConnection } from 'typeorm';
 import * as Express from 'express';
+import bodyParser = require("body-parser");
+import { setup } from "./routes-setup";
 // middleWares
 
 const userChecker = (req, res, next) => {
@@ -9,9 +11,16 @@ const userChecker = (req, res, next) => {
     next()
 };
 
-import bodyParser = require("body-parser");
+const headerApply = (req, res, next) => {
+    res.append('Content-Type', 'application/json');
+    next();
+}
 
-import {setup} from "./routes-setup";
+const handleError = (err, req, res, next) => {
+    if (err.name === 'UnauthorizedError') {
+        res.status(401).send({ error: 'invalid token...'});
+    }
+}
 
 class App {
     app: Express.Application = Express();
@@ -19,12 +28,14 @@ class App {
     constructor() {
         createConnection()
             .then(_ => {
+                this.app.use(userChecker);
+                this.app.use(bodyParser.json());
+                this.app.use(headerApply);
+                setup(this.app);
+                this.app.use(handleError);
                 this.app.listen(3000, () => {
                     console.log('server running on 3000');
                 });
-                this.app.use(userChecker);
-                this.app.use(bodyParser.json());
-                setup(this.app);
             })
             .catch(console.log)
     }

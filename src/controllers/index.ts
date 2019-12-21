@@ -1,5 +1,1 @@
-export * from './user';
-export * from './item';
-export * from './carriage';
-export * from './locomotive';
-export * from './building';
+export * from './administration';

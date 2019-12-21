@@ -1,11 +1,11 @@
 {
-  "type": "postgres",
+  "type": "mysql",
   "host": "localhost",
-  "username": "admin",
-  "password": "root",
-  "database": "admin",
-  "synchronize": true,
-  "port": 5432,
+  "username": "root",
+  "password": "admin",
+  "database": "decay_station_db",
+  "synchronize": false,
+  "port": 3306,
   "entities": [
     "database/models/**/*.ts"
   ],
