@@ -6,7 +6,7 @@ import {Router} from "express";
 export const setup = app => {
     Object.keys(Controllers).map(key => {
         const instance = new Controllers[key]();
-        console.log(`Building ${instance.constructor.name} controller`);
+        console.log(`Building \x1b[33m${instance.constructor.name}\x1b[0m controller`);
         const controllerMiddlewares = Reflect.getMetadata('controllerMiddlewares', instance);
         const globalPath = Reflect.getMetadata('prefix', instance);
         const routes = Reflect.getMetadata('routes', instance);

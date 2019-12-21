@@ -34,7 +34,7 @@ class App {
                 setup(this.app);
                 this.app.use(handleError);
                 this.app.listen(3000, () => {
-                    console.log('server running on 3000');
+                    console.log("Server running on \x1b[22m\x1b[32m3000");
                 });
             })
             .catch(console.log)

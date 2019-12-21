@@ -9,7 +9,6 @@ export class Constants {
     // Services
     private typeService: TypeService = new TypeService();
 
-
     // Items types
     @GET({path: '/itemstypes'})
     public async getItemsTypes(req: Request, res: Response) {

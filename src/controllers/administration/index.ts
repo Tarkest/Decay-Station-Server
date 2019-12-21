@@ -5,7 +5,7 @@ import * as config from "../../../config.json";
 import jwt = require("express-jwt");
 
 @Controller('/api/admin', jwt({ secret: config.jwtSecret }).unless({ path: ['/api/admin/login'] }))
-export class AdministrationController {
+export class Administration {
     private adminService: AdministrationService = new AdministrationService();
 
     @POST({path: '/login'})
