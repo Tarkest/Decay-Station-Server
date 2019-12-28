@@ -1,10 +1,10 @@
 import {Column, Entity, OneToMany} from "typeorm";
-import {BaseTypeEntity} from "../_BaseEntities/BaseTypeEntity";
+import { BaseIdNameEntity } from "../_BaseEntities/BaseIdNameEntity";
 import CarriageAssemblyItem from "./CarriageAssemblyItem";
 import CarriageBuildingPosition from "./CarriageBuildingPosition";
 
 @Entity('CarriageTypes')
-export default class CarriageType extends BaseTypeEntity {
+export default class CarriageType extends BaseIdNameEntity {
     @Column()
     storageCapacity: number;
 

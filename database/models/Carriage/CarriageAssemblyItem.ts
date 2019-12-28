@@ -1,7 +1,7 @@
 import BaseUpgardeItemEntity from "../_BaseEntities/BaseUpgradeItemEntity";
 import {Entity, ManyToOne, OneToOne, JoinColumn} from "typeorm";
 import CarriageType from "./CarriageType";
-import ItemType from "../Item/ItemType";
+import { ItemType } from "../Item/ItemType";
 
 @Entity("CarriagesUpgrades")
 export default class CarriageAssemblyItem extends BaseUpgardeItemEntity {

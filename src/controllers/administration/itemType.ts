@@ -21,8 +21,8 @@ export class ItemType {
     @POST({path: '/items'})
     public async addItemType(req: Request, res: Response) {
         try {
-            const { name, maxCount, appearenceVersion, typeId } = req.body;
-            res.send(await this.typeService.createItemType(name, maxCount, appearenceVersion, typeId));
+            const { name, maxCount, appearenceVersion, typeId, rarityId } = req.body;
+            res.send(await this.typeService.createItemType(name, maxCount, appearenceVersion, typeId, rarityId));
         } catch (error) {
             res.status(422).send(error.toString());
         }
@@ -31,8 +31,8 @@ export class ItemType {
     @PUT({path: '/items'})
     public async updateItemType(req: Request, res: Response) {
         try {
-            const { id, maxCount, appearenceVersion, typeId } = req.body;
-            res.send(await this.typeService.saveUpdateForItemType(id, maxCount, appearenceVersion, typeId));
+            const { id, maxCount, appearenceVersion, typeId, rarityId } = req.body;
+            res.send(await this.typeService.saveUpdateForItemType(id, maxCount, appearenceVersion, typeId, rarityId));
         } catch (error) {            
             res.status(422).send(error.toString());
         }

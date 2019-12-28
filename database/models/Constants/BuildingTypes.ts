@@ -1,10 +1,7 @@
-import {BaseEntity, PrimaryGeneratedColumn, Column, Entity} from "typeorm";
+import { Entity } from "typeorm";
+import { BaseIdNameEntity } from "../_BaseEntities/BaseIdNameEntity";
 
 @Entity("BuildingType")
-export class BuildingType extends BaseEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
+export class BuildingType extends BaseIdNameEntity {
 
-    @Column()
-    type: string;
 }
