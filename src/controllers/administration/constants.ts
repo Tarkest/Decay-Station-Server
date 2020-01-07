@@ -14,9 +14,9 @@ export class Constants {
   public async getItemsTypes(req: Request, res: Response) {
     try {
       const itemsTypes = await this.typeService.getItemsTypes();
-      res.send({ data: JSON.stringify({ items: itemsTypes }) });
+      res.send({ items: itemsTypes });
     } catch (error) {
-      res.status(400).send({ error: error.toString() });
+      res.status(400).send(error.toString());
     }
   }
 
@@ -24,10 +24,9 @@ export class Constants {
   public async addItemsType(req: Request, res: Response) {
     try {
       const { name } = req.body;
-      const createdItemsType = await this.typeService.createItemsType(name);
-      res.send({ data: JSON.stringify(createdItemsType) });
+      res.send(await this.typeService.createItemsType(name));
     } catch (error) {
-      res.status(422).send({ error: error.toString() });
+      res.status(422).send(error.toString());
     }
   }
 
@@ -35,10 +34,9 @@ export class Constants {
   public async deleteItemsType(req: Request, res: Response) {
     try {
       const { id } = req.query;
-      const deletedItemsType = await this.typeService.deleteItemsType(id);
-      res.send({ data: JSON.stringify(deletedItemsType) });
+      res.send(await this.typeService.deleteItemsType(id));
     } catch (error) {
-      res.status(422).send({ error: error.toString() });
+      res.status(422).send(error.toString());
     }
   }
 
@@ -47,9 +45,9 @@ export class Constants {
   public async getBuildingsTypes(req: Request, res: Response) {
     try {
       const buildingsTypes = await this.typeService.getBuildingsTypes();
-      res.send({ data: JSON.stringify({ items: buildingsTypes }) });
+      res.send({ items: buildingsTypes });
     } catch (error) {
-      res.status(400).send({ error: error.toString() });
+      res.status(400).send(error.toString());
     }
   }
 
@@ -57,10 +55,9 @@ export class Constants {
   public async addBuildingsType(req: Request, res: Response) {
     try {
       const { name } = req.body;
-      const newBuildingType = await this.typeService.createBuildingsType(name);
-      res.send({ data: JSON.stringify(newBuildingType) });
+      res.send(await this.typeService.createBuildingsType(name));
     } catch (error) {
-      res.status(422).send({ error: error.toString() });
+      res.status(422).send(error.toString());
     }
   }
 
@@ -68,10 +65,9 @@ export class Constants {
   public async deleteBuildingsType(req: Request, res: Response) {
     try {
       const { id } = req.query;
-      const deletedBuildingType = await this.typeService.deleteBuildingsType(id);
-      res.send({ data: JSON.stringify(deletedBuildingType) });
+      res.send(await this.typeService.deleteBuildingsType(id));
     } catch (error) {
-      res.status(422).send({ error: error.toString() });
+      res.status(422).send(error.toString());
     }
   }
 
@@ -80,9 +76,9 @@ export class Constants {
   public async getItemsRarities(req: Request, res: Response) {
     try {
       const itemsRarities = await this.typeService.getItemsRarities();
-      res.send({ data: JSON.stringify({ items: itemsRarities }) });
+      res.send({ items: itemsRarities });
     } catch (error) {
-      res.status(400).send({ error: error.toString() });
+      res.status(400).send(error.toString());
     }
   }
 
@@ -90,10 +86,9 @@ export class Constants {
   public async addItemsRarity(req: Request, res: Response) {
     try {
       const { name } = req.body;
-      const newItemsRarity = await this.typeService.createItemsRarity(name);
-      res.send({ data: JSON.stringify(newItemsRarity) });
+      res.send(await this.typeService.createItemsRarity(name));
     } catch (error) {
-      res.status(422).send({ error: error.toString() });
+      res.status(422).send(error.toString());
     }
   }
 
@@ -101,10 +96,9 @@ export class Constants {
   public async deleteItemsRarity(req: Request, res: Response) {
     try {
       const { id } = req.query;
-      const deletedItemsRarity = await this.typeService.deleteItemsRarity(id);
-      res.send({ data: JSON.stringify(deletedItemsRarity) });
+      res.send(await this.typeService.deleteItemsRarity(id));
     } catch (error) {
-      res.status(422).send({ error: error.toString() });
+      res.status(422).send(error.toString());
     }
   }
 }

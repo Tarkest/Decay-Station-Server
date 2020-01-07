@@ -13,9 +13,9 @@ export class Administration {
         const { login, password } = req.body;
         try {
             const token = await this.adminService.checkUser(login, password);
-            res.send({ data: token });
+            res.send(token);
         } catch {      
-            res.status(401).send({ error: 'Wrong credentials' });
+            res.status(401).send('Wrong credentials');
         }
     }
 }

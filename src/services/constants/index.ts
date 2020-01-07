@@ -17,7 +17,7 @@ export default class ConstatntsService {
     }
 
     public async createBuildingsType(name: string): Promise<BuildingType> {
-        const testType: BuildingType = await this.buildingsTypeRepository.findOne({ where: { type: name } });
+        const testType: BuildingType = await this.buildingsTypeRepository.findOne({ where: { name } });
         if(testType) throw Error("Building type with this name is already exist");
         return this.buildingsTypeRepository.save({ name });
     }
@@ -38,7 +38,7 @@ export default class ConstatntsService {
     }
 
     public async createItemsType(name: string): Promise<ItemsType> {
-        const testType: ItemsType = await this.itemsTypeRepository.findOne({ where: { type: name } });
+        const testType: ItemsType = await this.itemsTypeRepository.findOne({ where: { name } });
         if(testType) throw Error("Items type with this name is already exist");
         return this.itemsTypeRepository.save({ name });
     }
@@ -59,7 +59,7 @@ export default class ConstatntsService {
     }
 
     public async createItemsRarity(name: string): Promise<ItemsRarity> {
-        const testType: ItemsRarity = await this.itemsRarityRepository.findOne({ where: { type: name } });
+        const testType: ItemsRarity = await this.itemsRarityRepository.findOne({ where: { name } });
         if(testType) throw Error("Items rarity with this name is already exist");
         return this.itemsRarityRepository.save({ name });
     }
