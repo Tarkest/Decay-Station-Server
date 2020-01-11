@@ -9,10 +9,10 @@ export class ItemTypeBuffer extends BaseIdNameEntity {
     maxCount: number;
 
     @ManyToOne(type => ItemsType, ItemsType => ItemsType.items, { onDelete: "SET NULL" })
-    itemType: ItemsType;
+    type: ItemsType;
 
     @ManyToOne(type => ItemsRarity, ItemsRarity => ItemsRarity.items, { onDelete: "SET NULL" })
-    itemRarity: ItemsRarity;
+    rarity: ItemsRarity;
 
     @OneToOne(type => ItemType, buffer => buffer.updateBuffer, { onDelete: "CASCADE" })
     @JoinColumn()

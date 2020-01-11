@@ -5,6 +5,6 @@ import { ItemType } from "../Item/ItemType";
 @Entity("ItemsRarity")
 export class ItemsRarity extends BaseIdNameEntity {
 
-    @OneToMany(type => ItemType, itemType => itemType.itemType)
+    @OneToMany(type => ItemType, itemType => itemType.rarity)
     items: ItemType[];
 }
