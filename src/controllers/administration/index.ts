@@ -20,6 +20,6 @@ export class Administration {
     }
 }
 
-export * from "./locmotiveType";
+export * from "./locomotiveType";
 export * from "./itemType";
 export * from "./constants";

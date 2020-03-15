@@ -1,55 +1,54 @@
 import { Request, Response } from "express";
 import { Controller, GET, POST, DELETE, PUT } from "../../sharedUtilities/decorators";
-import TypeService from "../../services/itemType";
+import TypeService from "../../services/locomotiveType";
 import * as config from "../../../config.json";
 import jwt = require("express-jwt");
 
 @Controller('/api/admin', jwt({ secret: config.jwtSecret }))
-export class ItemType {
-    //Services
+export class Locomotive {
     private typeService: TypeService = new TypeService();
 
-    @GET({path: '/items'})
-    public async getItemsTypes(req: Request, res: Response) {
+    @GET({path: '/locomotives'})
+    public async getLocomotives(req: Request, res: Response) {
         try {
-            res.send(await this.typeService.getItemsTypes());
+            res.send(await this.typeService.getLocomotivesTypes());
         } catch (error) {
             res.status(403).send(error.toString());
         }
     }
 
-    @POST({path: '/items'})
-    public async addItemType(req: Request, res: Response) {
+    @POST({path: '/locomotives'})
+    public async addLocomotiveType(req: Request, res: Response) {
         try {
-            const { name, maxCount, type, rarity } = req.body;
-            res.send(await this.typeService.createItemType(name, maxCount, type.id, rarity.id));
+            const { name, upgrades } = req.body;
+            res.send(await this.typeService.createLocomotiveType(name, upgrades));
         } catch (error) {
             res.status(403).send(error.toString());
         }
     }
 
-    @PUT({path: '/items'})
-    public async updateItemType(req: Request, res: Response) {
+    @PUT({path: '/locomotives'})
+    public async updateLocomotive(req: Request, res: Response) {
         try {
-            const { id, maxCount, type, rarity } = req.body;
-            res.send(await this.typeService.saveUpdateForItemType(id, maxCount,  type.id, rarity.id));
+            const { id, upgrades } = req.body;
+            res.send(await this.typeService.saveUpdateForLocomotive(id, upgrades));
         } catch (error) {            
             res.status(403).send(error.toString());
         }
     }
 
-    @PUT({path: '/items/rotation'})
-    public async changeRotation(req: Request, res: Response) {
+    @PUT({path: '/locomotives/rotation'})
+    public async chanegRotation(req: Request, res: Response) {
         try {
             const { id } = req.body;
             res.send(await this.typeService.changeRotationStatus(id));
-        } catch (error) {
+        } catch (error) {            
             res.status(403).send(error.toString());
         }
     }
 
-    @DELETE({ path: '/items'})
-    public async deleteItemType(req: Request, res: Response) {
+    @DELETE({ path: '/locomotives'})
+    public async deleteLocomotive(req: Request, res: Response) {
         try {
             res.status(404).send();
         } catch (error) {
@@ -57,11 +56,11 @@ export class ItemType {
         }
     }
 
-    @DELETE({ path: '/items/update'})
-    public async deleteItemTypeUpdate(req: Request, res: Response) {
+    @DELETE({ path: '/locomotives/update'})
+    public async deleteLocomotiveUpdate(req: Request, res: Response) {
         try {
             const { id } = req.query;
-            res.send(await this.typeService.removeUpdate(id));
+            res.send(await this.typeService.removeUpdates(id));
         } catch (error) {
             res.status(403).send(error.toString());
         }

@@ -2,7 +2,6 @@ import { getRepository, Repository } from "typeorm";
 import { ItemType, ItemTypeBuffer } from "../../../database/models/Item";
 import { ItemsType, ItemsRarity } from "../../../database/models/Constants";
 import ConstatntsService from "../constants";
-import { itemTypeDTO } from "./utils"
 
 export default class ItemTypeService {
     //Repositories
@@ -25,6 +24,10 @@ export default class ItemTypeService {
         return { items: types };
     }
 
+    public async getItemById(id: number): Promise<ItemType> {
+        return await this.itemTypeRepository.findOne({ where: { id }});
+    }
+
     public async saveUpdateForItemType(id: number, maxCount: number, typeId: number, rarityId: number): Promise<ItemType> {
         let itemType: ItemType = await this.itemTypeRepository.findOne({ where:{ id }, relations: [ "updateBuffer", "type", "rarity" ] });
         if(!itemType) throw Error("Requested item is not exist");
@@ -40,8 +43,10 @@ export default class ItemTypeService {
     }
 
     public async removeUpdate(id: number) {
-        let updateBuffer: ItemTypeBuffer = await this.itemTypeBufferRepository.findOne({ where:{ id } });
+        let updateBuffer: ItemTypeBuffer = await this.itemTypeBufferRepository.findOne({ where: { id } });
         if(!updateBuffer) throw Error("There is no incoming update already, please reload the editor");
         return this.itemTypeBufferRepository.remove(updateBuffer);
     }
 }
+
+export { ItemType } from "../../../database/models/Item";
