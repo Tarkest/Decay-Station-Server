@@ -6,7 +6,9 @@
   "scripts": {
     "start": "nodemon --exec ts-node index.ts",
     "d": "nodemon --inspect './**/*.ts' --ignore 'src/**/*.spec.ts' --exec ts-node index.ts",
-    "db": "ts-node ./node_modules/typeorm/cli.js",
+    "dbrun": "ts-node ./node_modules/typeorm/cli.js migration:run",
+    "dbrevert": "ts-node ./node_modules/typeorm/cli.js migration:revert",
+    "dbgenerate": "ts-node ./node_modules/typeorm/cli.js migration:generate -n",
     "test": "echo \"Error: no test specified\" && exit 1",
     "debug": "tsc && node-debug index.js",
     "build": "tsc"
@@ -39,6 +41,7 @@
     "reflect-metadata": "^0.1.13",
     "swagger-jsdoc": "^1.3.0",
     "ts-node": "^8.0.3",
+    "tslint": "^6.1.0",
     "typeorm": "^0.2.15",
     "typescript": "^3.3.4000"
   }

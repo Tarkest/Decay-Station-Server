@@ -1,10 +1,10 @@
 import { Entity, OneToMany } from "typeorm";
 import { BaseIdNameEntity } from "../_BaseEntities/BaseIdNameEntity";
-import { ItemType } from "../Item/ItemType";
+import { ItemData } from "../Item/itemData";
 
 @Entity("ItemsType")
 export class ItemsType extends BaseIdNameEntity {
 
-    @OneToMany(type => ItemType, itemType => itemType.type)
-    items: ItemType[];
+    @OneToMany(type => ItemData, itemData => itemData.type)
+    items: ItemData[];
 }

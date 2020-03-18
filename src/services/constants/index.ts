@@ -2,7 +2,9 @@ import { getRepository, Repository } from "typeorm";
 import { BuildingType, ItemsType, ItemsRarity } from "../../../database/models/Constants";
 
 export default class ConstatntsService {
+
     // Repositories
+
     private buildingsTypeRepository: Repository<BuildingType> = getRepository(BuildingType);
     private itemsTypeRepository: Repository<ItemsType> = getRepository(ItemsType);
     private itemsRarityRepository: Repository<ItemsRarity> = getRepository(ItemsRarity);

@@ -1,3 +1,3 @@
-export * from "./BuildingTypes";
-export * from "./ItemsTypes";
-export * from "./ItemsRarity";
+export * from "./buildingTypes";
+export * from "./itemsTypes";
+export * from "./itemsRarity";

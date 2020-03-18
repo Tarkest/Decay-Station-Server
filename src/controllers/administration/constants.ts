@@ -6,7 +6,9 @@ import jwt = require("express-jwt");
 
 @Controller('/api/admin/constants', jwt({ secret: config.jwtSecret }))
 export class Constants {
+
   // Services
+
   private typeService: TypeService = new TypeService();
 
   // Items types

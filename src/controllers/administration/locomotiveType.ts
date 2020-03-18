@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Controller, GET, POST, DELETE, PUT } from "../../sharedUtilities/decorators";
-import TypeService from "../../services/locomotiveType";
+import TypeService from "../../services/locomotiveData";
 import * as config from "../../../config.json";
 import jwt = require("express-jwt");
 
@@ -18,10 +18,10 @@ export class Locomotive {
     }
 
     @POST({path: '/locomotives'})
-    public async addLocomotiveType(req: Request, res: Response) {
+    public async addLocomotiveData(req: Request, res: Response) {
         try {
-            const { name, upgrades } = req.body;
-            res.send(await this.typeService.createLocomotiveType(name, upgrades));
+            const { name, maxLevel, upgradesRecipes } = req.body;
+            res.send(await this.typeService.createLocomotiveData(name, upgradesRecipes));
         } catch (error) {
             res.status(403).send(error.toString());
         }
@@ -32,17 +32,17 @@ export class Locomotive {
         try {
             const { id, upgrades } = req.body;
             res.send(await this.typeService.saveUpdateForLocomotive(id, upgrades));
-        } catch (error) {            
+        } catch (error) {
             res.status(403).send(error.toString());
         }
     }
 
     @PUT({path: '/locomotives/rotation'})
-    public async chanegRotation(req: Request, res: Response) {
+    public async changeRotation(req: Request, res: Response) {
         try {
             const { id } = req.body;
             res.send(await this.typeService.changeRotationStatus(id));
-        } catch (error) {            
+        } catch (error) {
             res.status(403).send(error.toString());
         }
     }

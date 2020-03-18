@@ -14,7 +14,7 @@ export class Administration {
         try {
             const token = await this.adminService.checkUser(login, password);
             res.send(token);
-        } catch {      
+        } catch {
             res.status(401).send('Wrong credentials');
         }
     }

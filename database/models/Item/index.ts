@@ -1,2 +1,2 @@
-export * from "./ItemType";
-export * from "./ItemTypeBuffer";
+export * from "./itemData";
+export * from "./itemDataBuffer";

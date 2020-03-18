@@ -1,19 +1,19 @@
-import {BaseEntity, PrimaryGeneratedColumn, Column, Entity, ManyToMany, JoinTable, ManyToOne} from "typeorm";
-import {BuildingType} from "../Constants/BuildingTypes";
-import CarriageType from "./CarriageType";
+// import {BaseEntity, PrimaryGeneratedColumn, Column, Entity, ManyToMany, JoinTable, ManyToOne} from "typeorm";
+// import {BuildingType} from "../Constants/BuildingTypes";
+// import CarriageData from "./carriageData";
 
-@Entity("BuildingPosition")
-export default class CarriageBuildingPosition extends BaseEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
+// @Entity("BuildingPosition")
+// export default class CarriageBuildingPosition extends BaseEntity {
+//     @PrimaryGeneratedColumn()
+//     id: number;
 
-    @Column()
-    buildingSize: number;
+//     @Column()
+//     buildingSize: number;
 
-    @ManyToMany(type => BuildingType)
-    @JoinTable()
-    buildingsTypes: BuildingType[];
+//     @ManyToMany(type => BuildingType)
+//     @JoinTable()
+//     buildingsTypes: BuildingType[];
 
-    @ManyToOne(type => CarriageType, carType => carType.buildingSlot)
-    carriageType: CarriageType;
-}
+//     @ManyToOne(type => CarriageData, carType => carType.buildingSlot)
+//     carriageData: CarriageData;
+// }
