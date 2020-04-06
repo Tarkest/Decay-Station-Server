@@ -1,0 +1,48 @@
+{
+  "name": "decay-station-api",
+  "version": "2.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --exec ts-node index.ts",
+    "d": "nodemon --inspect './**/*.ts' --ignore 'src/**/*.spec.ts' --exec ts-node index.ts",
+    "dbrun": "ts-node ./node_modules/typeorm/cli.js migration:run",
+    "dbrevert": "ts-node ./node_modules/typeorm/cli.js migration:revert",
+    "dbgenerate": "ts-node ./node_modules/typeorm/cli.js migration:generate -n",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "debug": "tsc && node-debug index.js",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/joi": "^14.3.3",
+    "commander": "^2.20.0",
+    "recursive-readdir-sync": "^1.0.6"
+  },
+  "dependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/express": "^4.16.1",
+    "@types/hapi": "^18.0.1",
+    "@types/jsonwebtoken": "^8.3.5",
+    "@types/node": "^11.11.5",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "boom": "^7.3.0",
+    "express": "^4.16.4",
+    "express-jwt": "^5.3.1",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.24.0",
+    "mysql": "^2.16.0",
+    "pg": "^7.9.0",
+    "readdir": "^0.1.0",
+    "reflect-metadata": "^0.1.13",
+    "swagger-jsdoc": "^1.3.0",
+    "ts-node": "^8.0.3",
+    "tslint": "^6.1.0",
+    "typeorm": "^0.2.15",
+    "typescript": "^3.3.4000"
+  }
+}

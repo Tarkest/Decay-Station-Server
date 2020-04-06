@@ -1,0 +1,19 @@
+{
+  "type": "mysql",
+  "host": "localhost",
+  "username": "root",
+  "password": "admin",
+  "database": "decay_station_db",
+  "synchronize": false,
+  "port": 3306,
+  "entities": [
+    "database/models/**/*.ts"
+  ],
+  "migrations": [
+    "migration/*.ts"
+  ],
+  "cli": {
+    "migrationsDir": "migration"
+  },
+  "logging": true
+}
