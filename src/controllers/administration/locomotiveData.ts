@@ -5,7 +5,7 @@ import * as config from "../../../config.json";
 import jwt = require("express-jwt");
 
 @Controller('/api/admin', jwt({ secret: config.jwtSecret }))
-export class Locomotive {
+export class LocomotiveData {
     private typeService: TypeService = new TypeService();
 
     @GET({path: '/locomotives'})
@@ -21,7 +21,6 @@ export class Locomotive {
     public async addLocomotiveData(req: Request, res: Response) {
         try {
             const { name, maxLevel, upgradesRecipes, buildingSlots } = req.body;
-            console.log(req.body);
             res.send(await this.typeService.createLocomotiveData(name, maxLevel, upgradesRecipes, buildingSlots));
         } catch (error) {
             res.status(403).send(error.toString());
@@ -51,6 +50,7 @@ export class Locomotive {
     @DELETE({path: '/locomotives'})
     public async deleteLocomotive(req: Request, res: Response) {
         try {
+            const { id } = req.query;
             res.status(404).send();
         } catch (error) {
             res.status(403).send(error.toString());

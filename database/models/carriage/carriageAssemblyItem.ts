@@ -3,7 +3,7 @@ import { Entity, ManyToOne } from "typeorm";
 import { CarriageData } from "./carriageData";
 import { ItemData } from "../item";
 
-@Entity("CarriageAssemblyItem")
+@Entity("CarriageAssemblyItemData")
 export class CarriageAssemblyItem extends BaseUpgradeItemEntity {
 
   @ManyToOne(type => ItemData, { onDelete: "SET NULL" })

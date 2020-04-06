@@ -1,4 +1,4 @@
-export interface UpgradeItem {
+export interface IUpgradeItem {
     count: number;
     level: number;
     item: {
@@ -6,8 +6,22 @@ export interface UpgradeItem {
     }
 }
 
-export interface BuildingSlot {
+export interface ILocomotiveBuildingSlot {
     level: number;
+    buildingType: {
+        id: number;
+    }
+}
+
+export interface IAssemablyItem {
+    count: number;
+    item: {
+        id: number;
+    }
+}
+
+export interface ICarriageBuildingSlot {
+    buildingSize: number;
     buildingType: {
         id: number;
     }

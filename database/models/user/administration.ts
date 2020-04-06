@@ -1,4 +1,5 @@
-import { Entity, Column, BaseEntity, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, BaseEntity, PrimaryGeneratedColumn, BeforeInsert } from "typeorm";
+import { hashSync } from "bcryptjs";
 
 @Entity("Administation")
 export default class Administrator extends BaseEntity {

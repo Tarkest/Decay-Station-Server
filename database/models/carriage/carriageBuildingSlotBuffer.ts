@@ -13,6 +13,6 @@ export class CarriageBuildingSlotBuffer extends BaseEntity {
     @ManyToOne(type => BuildingType, { onDelete: "SET NULL" })
     buildingType: BuildingType;
 
-    @ManyToOne(type => CarriageDataBuffer, carriageData => carriageData.buildingSlot, { onDelete: "CASCADE" })
+    @ManyToOne(type => CarriageDataBuffer, carriageData => carriageData.buildingSlots, { onDelete: "CASCADE" })
     carriageData: CarriageDataBuffer;
 }

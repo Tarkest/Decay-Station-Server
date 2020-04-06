@@ -1,4 +1,4 @@
-import {Column, Entity, OneToMany, OneToOne, JoinColumn} from "typeorm";
+import { Column, Entity, OneToMany, OneToOne, JoinColumn } from "typeorm";
 import { BaseIdNameEntity } from "../baseEntities";
 import { CarriageAssemblyItem } from "./carriageAssemblyItem";
 import { CarriageBuildingSlot } from "./carriageBuildingSlot";
@@ -19,7 +19,7 @@ export class CarriageData extends BaseIdNameEntity {
     assemblyItems: CarriageAssemblyItem[];
 
     @OneToMany(type => CarriageBuildingSlot, slot => slot.carriageData, { onDelete: "CASCADE" })
-    buildingSlot: CarriageBuildingSlot[];
+    buildingSlots: CarriageBuildingSlot[];
 
     @OneToOne(type => CarriageDataBuffer, buffer => buffer.currentVersion, { onDelete: "SET NULL" })
     @JoinColumn()

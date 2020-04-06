@@ -23,3 +23,4 @@ export class Administration {
 export * from "./locomotiveData";
 export * from "./itemData";
 export * from "./constants";
+export * from "./carriagesData";

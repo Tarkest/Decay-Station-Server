@@ -53,6 +53,7 @@ export class ItemData {
     @DELETE({path: '/items'})
     public async deleteItemData(req: Request, res: Response) {
         try {
+            const { id } = req.query;
             res.status(404).send();
         } catch (error) {
             res.status(403).send(error.toString());

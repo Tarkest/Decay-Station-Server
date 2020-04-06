@@ -1,13 +1,15 @@
 import { getRepository, Repository } from "typeorm";
-import { LocomotiveData } from "../../../database/models/locomotive/locomotiveData";
-import { LocomotiveDataUpgrade } from "../../../database/models/locomotive/locomotiveUpgradeData";
-import { LocomotiveDataUpgradeBuffer } from "../../../database/models/locomotive/locomotiveUpgradeDataBuffer";
-import { LocomotiveDataBuffer } from "../../../database/models/locomotive/locomotiveDataBuffer";
-import { LocomotiveBuildingSlot } from "../../../database/models/locomotive/locomotiveBuildingSlot";
-import { LocomotiveBuildingSlotBuffer } from "../../../database/models/locomotive/locomotiveBuildingSlotBuffer";
+import {
+    LocomotiveData,
+    LocomotiveDataUpgrade,
+    LocomotiveDataUpgradeBuffer,
+    LocomotiveDataBuffer,
+    LocomotiveBuildingSlot,
+    LocomotiveBuildingSlotBuffer
+} from "../../../database/models/locomotive";
 import ItemDataService, { ItemData } from "../itemData";
 import ConstantsService, { BuildingType } from "../constants";
-import { UpgradeItem, BuildingSlot } from "../interfaces";
+import { IUpgradeItem, ILocomotiveBuildingSlot } from "../interfaces";
 
 export default class LocomotiveDataService {
 
@@ -25,7 +27,7 @@ export default class LocomotiveDataService {
     private itemService: ItemDataService = new ItemDataService();
     private constantsService: ConstantsService = new ConstantsService();
 
-    public async createLocomotiveData(name: string, maxLevel: number, upgrades: UpgradeItem[], buildingSlots: BuildingSlot[]): Promise<LocomotiveData> {
+    public async createLocomotiveData(name: string, maxLevel: number, upgrades: IUpgradeItem[], buildingSlots: ILocomotiveBuildingSlot[]): Promise<LocomotiveData> {
         const checkType: LocomotiveData = await this.dataRepository.findOne({ where: { name }});
         if(checkType) throw Error("Locomotive with this name already exists");
         for (let upgradeIndex = 0; upgradeIndex < maxLevel - 1; upgradeIndex++) {
@@ -41,7 +43,7 @@ export default class LocomotiveDataService {
         }
         const upgradesData: LocomotiveDataUpgrade[] = [];
         const buildingSlotsData: LocomotiveBuildingSlot[] = [];
-        const locomotiveData: LocomotiveData = await this.dataRepository.save({ name, inRotation: false, maxLevel, upgradesRecipes: upgradesData, buildingSlots: buildingSlotsData });
+        const locomotiveData: LocomotiveData = await this.dataRepository.save({ name, inRotation: false, maxLevel });
         upgrades.map(async ({ item, count, level }, index) => {
             upgradesData[index] = await this.upgradesDataRepository.save({ item, level, count, locomotiveData });
         });
@@ -68,7 +70,7 @@ export default class LocomotiveDataService {
         return { items: locomotivesTypes };
     }
 
-    public async saveUpdateForLocomotive(id: number, maxLevel: number, upgrades: UpgradeItem[], buildingSlots: BuildingSlot[]): Promise<LocomotiveData> {
+    public async saveUpdateForLocomotive(id: number, maxLevel: number, upgrades: IUpgradeItem[], buildingSlots: ILocomotiveBuildingSlot[]): Promise<LocomotiveData> {
         const locomotiveData: LocomotiveData = await this.dataRepository.findOne({
             where: { id },
             relations: [

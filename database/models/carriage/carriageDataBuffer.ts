@@ -1,6 +1,6 @@
-import {Column, Entity, OneToMany, OneToOne, JoinColumn} from "typeorm";
+import { Column, Entity, OneToMany, OneToOne, JoinColumn } from "typeorm";
 import { BaseIdNameEntity } from "../baseEntities";
-import { CarriagesAssemblyItemBuffer } from "./carriageAssemblyItemBuffer";
+import { CarriageAssemblyItemBuffer } from "./carriageAssemblyItemBuffer";
 import { CarriageBuildingSlotBuffer } from "./carriageBuildingSlotBuffer";
 import { CarriageData } from "./carriageData";
 
@@ -12,11 +12,11 @@ export class CarriageDataBuffer extends BaseIdNameEntity {
     @Column()
     crewCapacity: number;
 
-    @OneToMany(type => CarriagesAssemblyItemBuffer, item => item.carriageData, { onDelete: "CASCADE" })
-    assemblyItems: CarriagesAssemblyItemBuffer[];
+    @OneToMany(type => CarriageAssemblyItemBuffer, item => item.carriageData, { onDelete: "CASCADE" })
+    assemblyItems: CarriageAssemblyItemBuffer[];
 
     @OneToMany(type => CarriageBuildingSlotBuffer, slot => slot.carriageData, { onDelete: "CASCADE" })
-    buildingSlot: CarriageBuildingSlotBuffer[];
+    buildingSlots: CarriageBuildingSlotBuffer[];
 
     @OneToOne(type => CarriageData, current => current.updateBuffer, { onDelete: "CASCADE" })
     @JoinColumn()
