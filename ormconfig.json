@@ -7,7 +7,7 @@
   "synchronize": false,
   "port": 3306,
   "entities": [
-    "database/models/**/*.ts"
+    "database/models/**/*{.ts,.js}"
   ],
   "migrations": [
     "migration/*.ts"
