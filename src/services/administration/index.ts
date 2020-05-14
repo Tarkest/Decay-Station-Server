@@ -1,5 +1,5 @@
 import { getRepository, Repository } from "typeorm";
-import Administrator from "../../../database/models/User/administrator";
+import Administrator from "../../../database/models/administration";
 import { compareSync } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import * as config from "../../../config.json";

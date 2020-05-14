@@ -4,6 +4,7 @@ import { createConnection } from 'typeorm';
 import * as Express from 'express';
 import bodyParser = require("body-parser");
 import { setup } from "./routes-setup";
+import * as config from "./config.json";
 // middleWares
 
 const userChecker = (req, res, next) => {
@@ -33,8 +34,8 @@ class App {
                 this.app.use(headerApply);
                 setup(this.app);
                 this.app.use(handleError);
-                this.app.listen(3000, () => {
-                    console.log('server running on 3000');
+                this.app.listen(config.port, () => {
+                    console.log(`Server running on \x1b[22m\x1b[32m${config.port}\x1b[0m`);
                 });
             })
             .catch(console.log)
