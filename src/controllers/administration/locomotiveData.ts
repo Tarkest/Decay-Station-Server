@@ -21,7 +21,7 @@ export class LocomotiveData {
     public async addLocomotiveData(req: Request, res: Response) {
         try {
             const { name, maxLevel, upgradesRecipes, buildingSlots } = req.body;
-            res.send(await this.typeService.createLocomotiveData(name, maxLevel as number, upgradesRecipes, buildingSlots));
+            res.send(await this.typeService.createLocomotiveData(name, maxLevel, upgradesRecipes, buildingSlots));
         } catch (error) {
             res.status(403).send(error.toString());
         }
@@ -31,7 +31,7 @@ export class LocomotiveData {
     public async updateLocomotive(req: Request, res: Response) {
         try {
             const { id, maxLevel, upgradesRecipes, buildingSlots } = req.body;
-            res.send(await this.typeService.saveUpdateForLocomotive(id as number, maxLevel as number, upgradesRecipes, buildingSlots));
+            res.send(await this.typeService.saveUpdateForLocomotive(id, maxLevel, upgradesRecipes, buildingSlots));
         } catch (error) {
             res.status(403).send(error.toString());
         }
@@ -41,7 +41,7 @@ export class LocomotiveData {
     public async changeRotation(req: Request, res: Response) {
         try {
             const { id } = req.body;
-            res.send(await this.typeService.changeRotationStatus(id as number));
+            res.send(await this.typeService.changeRotationStatus(id));
         } catch (error) {
             res.status(403).send(error.toString());
         }
@@ -61,7 +61,7 @@ export class LocomotiveData {
     public async deleteLocomotiveUpdate(req: Request, res: Response) {
         try {
             const { id } = req.query;
-            res.send(await this.typeService.removeUpdates(id as number));
+            res.send(await this.typeService.removeUpdates(id));
         } catch (error) {
             res.status(403).send(error.toString());
         }

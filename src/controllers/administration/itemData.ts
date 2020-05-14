@@ -24,7 +24,7 @@ export class ItemData {
     public async addItemData(req: Request, res: Response) {
         try {
             const { name, maxCount, type, rarity } = req.body;
-            res.send(await this.typeService.createItemData(name, maxCount as number, type.id as number, rarity.id as number));
+            res.send(await this.typeService.createItemData(name, maxCount, type.id, rarity.id));
         } catch (error) {
             res.status(403).send(error.toString());
         }
@@ -34,7 +34,7 @@ export class ItemData {
     public async updateItemData(req: Request, res: Response) {
         try {
             const { id, maxCount, type, rarity } = req.body;
-            res.send(await this.typeService.saveUpdateForItemData(id as number, maxCount as number, type.id as number, rarity.id as number));
+            res.send(await this.typeService.saveUpdateForItemData(id, maxCount, type.id, rarity.id));
         } catch (error) {
             res.status(403).send(error.toString());
         }
@@ -44,7 +44,7 @@ export class ItemData {
     public async changeRotation(req: Request, res: Response) {
         try {
             const { id } = req.body;
-            res.send(await this.typeService.changeRotationStatus(id as number));
+            res.send(await this.typeService.changeRotationStatus(id));
         } catch (error) {
             res.status(403).send(error.toString());
         }
@@ -64,7 +64,7 @@ export class ItemData {
     public async deleteItemDataUpdate(req: Request, res: Response) {
         try {
             const { id } = req.query;
-            res.send(await this.typeService.removeUpdate(id as number));
+            res.send(await this.typeService.removeUpdate(id));
         } catch (error) {
             res.status(403).send(error.toString());
         }

@@ -31,7 +31,7 @@ export class RecipesData {
     public async updateRecipe(req: Request, res: Response) {
         try {
           const { id, ingredients, results } = req.body;
-          res.send(await this.typeService.saveUpdateForRecipe(id as number, ingredients, results));
+          res.send(await this.typeService.saveUpdateForRecipe(id, ingredients, results));
         } catch (error) {
           res.status(403).send(error.toString());
         }
@@ -41,7 +41,7 @@ export class RecipesData {
     public async changeRotation(req: Request, res: Response) {
         try {
           const { id } = req.body;
-          res.send(await this.typeService.changeRotationStatus(id as number));
+          res.send(await this.typeService.changeRotationStatus(id));
         } catch (error) {
           res.status(403).send(error.toString());
         }
@@ -51,7 +51,7 @@ export class RecipesData {
     public async deleteRecipe(req: Request, res: Response) {
         try {
           const { id } = req.query;
-          res.send(await this.typeService.deleteRecipeData(id as number));
+          res.send(await this.typeService.deleteRecipeData(id));
         } catch (error) {
           res.status(403).send(error.toString());
         }
@@ -61,7 +61,7 @@ export class RecipesData {
     public async deleteRecipeUpdate(req: Request, res: Response) {
         try {
           const { id } = req.query;
-          res.send(await this.typeService.removeUpdates(id as number));
+          res.send(await this.typeService.removeUpdates(id));
         } catch (error) {
           res.status(403).send(error.toString());
         }

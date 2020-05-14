@@ -21,7 +21,7 @@ export class BuildingsData {
     public async addBuildingData(req: Request, res: Response) {
         try {
           const {name, size, typeId, recipes } = req.body;
-          res.send(await this.typeService.createBuildingData(name, size as number, typeId as number, recipes));
+          res.send(await this.typeService.createBuildingData(name, size, typeId, recipes));
         } catch (error) {
           res.status(403).send(error.toString());
         }
@@ -31,7 +31,7 @@ export class BuildingsData {
     public async updateBuilding(req: Request, res: Response) {
         try {
           const { id, size, typeId, recipes } = req.body;
-          res.send(await this.typeService.saveUpdateForBuilding(id as number, size as number, typeId as number, recipes));
+          res.send(await this.typeService.saveUpdateForBuilding(id, size, typeId, recipes));
         } catch (error) {
           res.status(403).send(error.toString());
         }
@@ -41,7 +41,7 @@ export class BuildingsData {
     public async deleteBuilding(req: Request, res: Response) {
         try {
           const { id } = req.query;
-          res.send(await this.typeService.deleteBuildingData(id as number));
+          res.send(await this.typeService.deleteBuildingData(id));
         } catch (error) {
           res.status(403).send(error.toString());
         }
@@ -51,7 +51,7 @@ export class BuildingsData {
     public async deleteBuildingUpdate(req: Request, res: Response) {
         try {
           const { id } = req.query;
-          res.send(await this.typeService.removeUpdates(id as number));
+          res.send(await this.typeService.removeUpdates(id));
         } catch (error) {
           res.status(403).send(error.toString());
         }

@@ -36,7 +36,7 @@ export class Constants {
   public async deleteItemsType(req: Request, res: Response) {
     try {
       const { id } = req.query;
-      res.send(await this.typeService.deleteItemsType(id as number));
+      res.send(await this.typeService.deleteItemsType(id));
     } catch (error) {
       res.status(422).send(error.toString());
     }
@@ -67,7 +67,7 @@ export class Constants {
   public async deleteBuildingsType(req: Request, res: Response) {
     try {
       const { id } = req.query;
-      res.send(await this.typeService.deleteBuildingsType(id as number));
+      res.send(await this.typeService.deleteBuildingsType(id));
     } catch (error) {
       res.status(422).send(error.toString());
     }
@@ -98,7 +98,7 @@ export class Constants {
   public async deleteItemsRarity(req: Request, res: Response) {
     try {
       const { id } = req.query;
-      res.send(await this.typeService.deleteItemsRarity(id as number));
+      res.send(await this.typeService.deleteItemsRarity(id));
     } catch (error) {
       res.status(422).send(error.toString());
     }
@@ -129,7 +129,7 @@ export class Constants {
   public async deleteEnvironmentsType(req: Request, res: Response) {
     try {
       const { id } = req.query;
-      res.send(await this.typeService.deleteEnvironmentsType(id as number));
+      res.send(await this.typeService.deleteEnvironmentsType(id));
     } catch (error) {
       res.status(422).send(error.toString());
     }

@@ -21,7 +21,7 @@ export class MapData {
     public async addBuildingData(req: Request, res: Response) {
         try {
           const { name, environmentId, positionX, positionY } = req.body;
-          res.send(await this.typeService.createMapSector(name, environmentId as number, positionX as number, positionY as number));
+          res.send(await this.typeService.createMapSector(name, environmentId, positionX, positionY));
         } catch (error) {
           res.status(403).send(error.toString());
         }
@@ -31,7 +31,7 @@ export class MapData {
     public async updateBuilding(req: Request, res: Response) {
         try {
           const { id, name, environmentId } = req.body;
-          res.send(await this.typeService.saveUpdateForRecipe(id as number, name, environmentId as number ));
+          res.send(await this.typeService.saveUpdateForRecipe(id, name, environmentId ));
         } catch (error) {
           res.status(403).send(error.toString());
         }
@@ -41,7 +41,7 @@ export class MapData {
     public async deleteBuilding(req: Request, res: Response) {
         try {
           const { id } = req.query;
-          res.send(await this.typeService.deleteSectorData(id as number));
+          res.send(await this.typeService.deleteSectorData(id));
         } catch (error) {
           res.status(403).send(error.toString());
         }
@@ -51,7 +51,7 @@ export class MapData {
     public async deleteBuildingUpdate(req: Request, res: Response) {
         try {
           const { id } = req.query;
-          res.send(await this.typeService.removeUpdates(id as number));
+          res.send(await this.typeService.removeUpdates(id));
         } catch (error) {
           res.status(403).send(error.toString());
         }
