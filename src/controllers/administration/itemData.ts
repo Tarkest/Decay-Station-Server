@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Controller, GET, POST, DELETE, PUT } from "../../sharedUtilities/decorators";
+import { Controller, GET, POST, DELETE, PUT } from "../../shared/decorators";
 import TypeService from "../../services/ItemData";
 import * as config from "../../../config.json";
 import jwt = require("express-jwt");

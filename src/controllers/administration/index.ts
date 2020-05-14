@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Controller, POST } from "../../sharedUtilities/decorators";
+import { Controller, POST } from "../../shared/decorators";
 import AdministrationService from "../../services/administration";
 import * as config from "../../../config.json";
 import jwt = require("express-jwt");
@@ -24,3 +24,6 @@ export * from "./locomotiveData";
 export * from "./itemData";
 export * from "./constants";
 export * from "./carriagesData";
+export * from "./recipesData";
+export * from "./buildingsData";
+export * from "./mapData";

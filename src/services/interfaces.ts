@@ -26,3 +26,14 @@ export interface ICarriageBuildingSlot {
         id: number;
     }
 }
+
+export interface IRecipeIngredient {
+    count: number;
+    item: {
+        id: number;
+    }
+}
+
+export interface IRecipeResult extends IRecipeIngredient {
+    dropChance: number;
+}

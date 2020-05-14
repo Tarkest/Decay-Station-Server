@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Controller, GET, POST, DELETE, PUT } from "../../sharedUtilities/decorators";
+import { Controller, GET, POST, DELETE, PUT } from "../../shared/decorators";
 import TypeService from "../../services/constants";
 import * as config from "../../../config.json";
 import jwt = require("express-jwt");
@@ -99,6 +99,37 @@ export class Constants {
     try {
       const { id } = req.query;
       res.send(await this.typeService.deleteItemsRarity(id));
+    } catch (error) {
+      res.status(422).send(error.toString());
+    }
+  }
+
+  // Map Environments
+  @GET({path: '/environments'})
+  public async getEnvironmentsTypes(req: Request, res: Response) {
+    try {
+      const itemsRarities = await this.typeService.getEnvironmentsTypes();
+      res.send({ items: itemsRarities });
+    } catch (error) {
+      res.status(400).send(error.toString());
+    }
+  }
+
+  @POST({path: '/environments'})
+  public async addEnvironmentsType(req: Request, res: Response) {
+    try {
+      const { name } = req.body;
+      res.send(await this.typeService.createEnvironmentsType(name));
+    } catch (error) {
+      res.status(422).send(error.toString());
+    }
+  }
+
+  @DELETE({path: '/environments'})
+  public async deleteEnvironmentsType(req: Request, res: Response) {
+    try {
+      const { id } = req.query;
+      res.send(await this.typeService.deleteEnvironmentsType(id));
     } catch (error) {
       res.status(422).send(error.toString());
     }

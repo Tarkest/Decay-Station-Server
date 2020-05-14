@@ -1,9 +1,9 @@
-import {Entity, Column, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Entity, Column, ManyToOne, PrimaryGeneratedColumn, BaseEntity} from "typeorm";
 import { LocomotiveDataBuffer } from "./locomotiveDataBuffer";
 import { BuildingType } from "../сonstants";
 
 @Entity("LocomotivesBuildingSlotsDataBuffer")
-export class LocomotiveBuildingSlotBuffer {
+export class LocomotiveBuildingSlotBuffer extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 

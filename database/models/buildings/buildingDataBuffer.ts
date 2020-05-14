@@ -2,10 +2,10 @@ import { Entity, Column, ManyToOne, ManyToMany, OneToOne, JoinColumn, JoinTable 
 import { BaseIdNameEntity } from "../baseEntities";
 import { BuildingType } from "../сonstants";
 import { RecipeData } from "../recipes";
-import { BuildingDataBuffer } from "./buildingDataBuffer";
+import { BuildingData } from "./buildingData";
 
-@Entity("BuildingData")
-export class BuildingData extends BaseIdNameEntity {
+@Entity("BuildingDataBuffer")
+export class BuildingDataBuffer extends BaseIdNameEntity {
   @Column()
   size: number;
 
@@ -13,10 +13,10 @@ export class BuildingData extends BaseIdNameEntity {
   type: BuildingType;
 
   @ManyToMany(type => RecipeData)
-  @JoinTable({ name: "RecipesToBuildings" })
+  @JoinTable({ name: "RecipesToBuildingsBuffers" })
   recipes: RecipeData[];
 
-  @OneToOne(type => BuildingDataBuffer, buffer => buffer.currentVersion, { onDelete: "SET NULL" })
+  @OneToOne(type => BuildingData, buildingData => buildingData.updateBuffer, { onDelete: "CASCADE" })
   @JoinColumn()
-  updateBuffer: BuildingDataBuffer;
+  currentVersion: BuildingData;
 }

@@ -70,20 +70,63 @@ export default class CarriageDataService {
     return { items: carriagesData }
   }
 
+  public async saveUpdateForCarriage(id: number, storageCapacity: number, crewCapacity: number, assemblyItems: IAssemablyItem[], buildingSlots: ICarriageBuildingSlot[]): Promise<CarriageData> {
+    const carriageData: CarriageData = await this.dataRepository.findOne({ 
+      where: { id },
+      relations: [
+        "updateBuffer",
+        "updateBuffer.assemblyItems",
+        "updateBuffer.buildingSlots",
+        "updateBuffer.assemblyItems.item",
+        "updateBuffer.buildingSlots.buildingType",
+        "assemblyItems",
+        "assemblyItems.item",
+        "buildingSlots",
+        "buildingSlots.buildingType"
+      ]
+    });
+    if(!carriageData) throw Error("Requested locomotive is not exist");
+    for (const assemblyItem of assemblyItems) {
+      let { count, item } = assemblyItem;
+      const itemData: ItemData = await this.itemService.getItemById(item.id);
+      if(!itemData) throw Error("One of item have invalid item id");
+      if(count > itemData.maxCount) count = itemData.maxCount;
+    }
+    for (const buildingSlot of buildingSlots) {
+      let { buildingType } = buildingSlot;
+      const buildingTypeData: BuildingType = await this.constantsService.getBuildingsType(buildingType.id);
+      if(!buildingTypeData) throw Error("One of building slot have invalid building type");
+    }
+    if(carriageData.updateBuffer) {
+      await this.assemblyItemsBuffersRepository.remove(carriageData.updateBuffer.assemblyItems);
+      await this.buildingSlotsBufferRepository.remove(carriageData.updateBuffer.buildingSlots);
+    }
+    const assemblyItemsData: CarriageAssemblyItemBuffer[] = [];
+    const buildingSlotsData: CarriageBuildingSlotBuffer[] = [];
+    const carriageDataBuffer: CarriageDataBuffer = await this.dataBufferRepository.save({ ...carriageData.updateBuffer, storageCapacity, crewCapacity, name: carriageData.name });
+    assemblyItems.map(async ({ item, count }, index) => {
+      assemblyItemsData[index] = await this.assemblyItemsBuffersRepository.save({ item, count, carriageData: carriageDataBuffer });
+    });
+    buildingSlots.map(async ({ buildingSize, buildingType }, index) => {
+      buildingSlotsData[index] = await this.buildingSlotsBufferRepository.save({ buildingSize, buildingType, carriageData: carriageDataBuffer });
+    });
+    return this.dataRepository.save({ ...carriageData, updateBuffer: carriageDataBuffer });
+  }
+
   public async changeRotationStatus(id: number): Promise<CarriageData> {
     const carriageData: CarriageData = await this.dataRepository.findOne({ where: { id } });
     return this.dataRepository.save({ ...carriageData, inRotation: !carriageData.inRotation });
-}
+  }
 
-public async removeUpdates(id: number) {
+  public async removeUpdates(id: number) {
     const updateBuffer: CarriageDataBuffer = await this.dataBufferRepository.findOne({ where: { id } });
     if(!updateBuffer) throw Error("There is no incoming update already, please reload the editor");
     return this.dataBufferRepository.remove(updateBuffer);
-}
+  }
 
-public async deleteCarriageData(id: number) {
+  public async deleteCarriageData(id: number) {
     const carriageData: CarriageData = await this.dataRepository.findOne({ where: { id } });
     if(!carriageData) throw Error("There is no locomotive with such id");
     return this.dataRepository.remove(carriageData);
-}
+  }
 }

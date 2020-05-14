@@ -1,46 +1,43 @@
 import { Request, Response } from "express";
 import { Controller, GET, POST, DELETE, PUT } from "../../shared/decorators";
-import TypeService from "../../services/carriageData";
+import TypeService from "../../services/recipesData";
 import * as config from "../../../config.json";
 import jwt = require("express-jwt");
 
 @Controller('/api/admin', jwt({ secret: config.jwtSecret }))
-export class CarriageData {
-
-    // Services
-
+export class RecipesData {
     private typeService: TypeService = new TypeService();
 
-    @GET({path: '/carriages'})
-    public async getCarriagesTypes(req: Request, res: Response) {
+    @GET({path: '/recipes'})
+    public async getRecipes(req: Request, res: Response) {
         try {
-          res.send(await this.typeService.getCarriagesTypes());
+          res.send(await this.typeService.getRecipesData());
         } catch (error) {
           res.status(403).send(error.toString());
         }
     }
 
-    @POST({path: '/carriages'})
-    public async addCarriageData(req: Request, res: Response) {
+    @POST({path: '/recipes'})
+    public async addRecipeData(req: Request, res: Response) {
         try {
-          const { name, storageCapacity, crewCapacity, assemblyItems, buildingSlots } = req.body;
-          res.send(await this.typeService.createCarriageData(name, storageCapacity, crewCapacity, assemblyItems, buildingSlots));
+          const { ingredients, results } = req.body;
+          res.send(await this.typeService.createRecipe(ingredients, results));
         } catch (error) {
           res.status(403).send(error.toString());
         }
     }
 
-    @PUT({path: '/carriages'})
-    public async updateCarriageData(req: Request, res: Response) {
+    @PUT({path: '/recipes'})
+    public async updateRecipe(req: Request, res: Response) {
         try {
-          const { id, storageCapacity, crewCapacity, assemblyItems, buildingSlots } = req.body;
-          res.send(await this.typeService.saveUpdateForCarriage(id, storageCapacity, crewCapacity, assemblyItems, buildingSlots));
+          const { id, ingredients, results } = req.body;
+          res.send(await this.typeService.saveUpdateForRecipe(id, ingredients, results));
         } catch (error) {
           res.status(403).send(error.toString());
         }
     }
 
-    @PUT({path: '/carriages/rotation'})
+    @PUT({path: '/recipes/rotation'})
     public async changeRotation(req: Request, res: Response) {
         try {
           const { id } = req.body;
@@ -50,17 +47,18 @@ export class CarriageData {
         }
     }
 
-    @DELETE({path: '/carriages'})
-    public async deleteCarriageData(req: Request, res: Response) {
+    @DELETE({path: '/recipes'})
+    public async deleteRecipe(req: Request, res: Response) {
         try {
-          res.status(404).send();
+          const { id } = req.query;
+          res.send(await this.typeService.deleteRecipeData(id));
         } catch (error) {
           res.status(403).send(error.toString());
         }
     }
 
-    @DELETE({path: '/carriages/update'})
-    public async deleteCarriageDataUpdate(req: Request, res: Response) {
+    @DELETE({path: '/recipes/update'})
+    public async deleteRecipeUpdate(req: Request, res: Response) {
         try {
           const { id } = req.query;
           res.send(await this.typeService.removeUpdates(id));
