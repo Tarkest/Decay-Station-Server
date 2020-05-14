@@ -24,7 +24,7 @@ export class CarriageData {
     public async addCarriageData(req: Request, res: Response) {
         try {
           const { name, storageCapacity, crewCapacity, assemblyItems, buildingSlots } = req.body;
-          res.send(await this.typeService.createCarriageData(name, storageCapacity, crewCapacity, assemblyItems, buildingSlots));
+          res.send(await this.typeService.createCarriageData(name, storageCapacity as number, crewCapacity as number, assemblyItems, buildingSlots));
         } catch (error) {
           res.status(403).send(error.toString());
         }
@@ -34,7 +34,7 @@ export class CarriageData {
     public async updateCarriageData(req: Request, res: Response) {
         try {
           const { id, storageCapacity, crewCapacity, assemblyItems, buildingSlots } = req.body;
-          res.send(await this.typeService.saveUpdateForCarriage(id, storageCapacity, crewCapacity, assemblyItems, buildingSlots));
+          res.send(await this.typeService.saveUpdateForCarriage(id as number, storageCapacity as number, crewCapacity as number, assemblyItems, buildingSlots));
         } catch (error) {
           res.status(403).send(error.toString());
         }
@@ -44,7 +44,7 @@ export class CarriageData {
     public async changeRotation(req: Request, res: Response) {
         try {
           const { id } = req.body;
-          res.send(await this.typeService.changeRotationStatus(id));
+          res.send(await this.typeService.changeRotationStatus(id as number));
         } catch (error) {
           res.status(403).send(error.toString());
         }
