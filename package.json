@@ -2,16 +2,22 @@
   "name": "decay-station-api",
   "version": "2.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "nodemon --exec ts-node index.ts",
+    "start": "npm run serve",
+    "serve": "node dist/server.js",
+    "dev": "nodemon --exec ts-node index.ts",
     "d": "nodemon --inspect './**/*.ts' --ignore 'src/**/*.spec.ts' --exec ts-node index.ts",
     "dbrun": "ts-node ./node_modules/typeorm/cli.js migration:run",
     "dbrevert": "ts-node ./node_modules/typeorm/cli.js migration:revert",
     "dbgenerate": "ts-node ./node_modules/typeorm/cli.js migration:generate -n",
     "test": "echo \"Error: no test specified\" && exit 1",
     "debug": "tsc && node-debug index.js",
-    "build": "tsc"
+    "build": "tsc",
+    "postinstall": "npm run build"
+  },
+  "engines": {
+    "node": "10.16.0"
   },
   "keywords": [],
   "author": "",
