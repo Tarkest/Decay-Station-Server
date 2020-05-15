@@ -39,7 +39,7 @@ class App {
         env(process.env.ENVIRONMENT_NAME).entities
       ],
       migrations: [
-        "migration/*.ts"
+        env(process.env.ENVIRONMENT_NAME).migrations
       ],
       cli: {
         "migrationsDir": "migration"

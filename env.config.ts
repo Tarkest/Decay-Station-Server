@@ -1,9 +1,11 @@
 const config = {
   local: {
-    entities: "database/models/**/*{.ts,.js}"
+    entities: "database/models/**/*{.ts,.js}",
+    migrations: "migration/*{.ts,.js}",
   },
   develop: {
-    entities: "dist/database/models/**/*.js"
+    entities: "dist/database/models/**/*.js",
+    migrations: "migration/*.js",
   }
 }
 
