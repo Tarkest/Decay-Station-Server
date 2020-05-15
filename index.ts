@@ -36,7 +36,7 @@ class App {
       synchronize: false,
       port: 3306,
       entities: [
-        "database/models/**/*{.ts,.js}"
+        env(process.env.ENVIRONMENT_NAME).entities
       ],
       migrations: [
         "migration/*.ts"

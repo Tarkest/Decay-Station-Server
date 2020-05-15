@@ -1,9 +1,9 @@
 const config = {
+  local: {
+    entities: "database/models/**/*{.ts,.js}"
+  },
   develop: {
-    dbHost: "pqxt96p7ysz6rn1f.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
-    dbPassword: "xtq0vfe138pp4y9e",
-    dbUser: "bj4alzy72l2assng",
-    dbName: "s1ffv09bhuwco1mt"
+    entities: "database/models/**/*.js"
   }
 }
 
