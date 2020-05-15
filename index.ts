@@ -30,22 +30,7 @@ class App {
   app: Express.Application = Express();
 
   constructor() {
-    createConnection({
-      type: "mysql",
-      url: process.env.JAWSDB_URL,
-      synchronize: false,
-      port: 3306,
-      entities: [
-        env(process.env.ENVIRONMENT_NAME).entities
-      ],
-      migrations: [
-        env(process.env.ENVIRONMENT_NAME).migrations
-      ],
-      cli: {
-        "migrationsDir": "migration"
-      },
-      logging: true
-    })
+    createConnection(env(process.env.ENVIRONMENT_NAME))
     .then(_ => {
         this.app.use(userChecker);
         this.app.use(bodyParser.json());
@@ -53,7 +38,7 @@ class App {
         setup(this.app);
         this.app.use(handleError);
         this.app.listen(config.port, () => {
-            console.log(`Server running on \x1b[22m\x1b[32m${process.env.ENVIRONMENT_NAME}\x1b[0m environment, on \x1b[22m\x1b[32m${config.port}\x1b[0m`);
+            console.log(`Server running on \x1b[22m\x1b[32m${process.env.ENVIRONMENT_NAME ? process.env.ENVIRONMENT_NAME : "local"}\x1b[0m environment, on \x1b[22m\x1b[32m${config.port}\x1b[0m port`);
         });
     })
     .catch(console.log)
