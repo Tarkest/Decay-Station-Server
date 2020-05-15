@@ -25,14 +25,14 @@
   "devDependencies": {
     "@types/joi": "^14.3.3",
     "commander": "^2.20.0",
-    "recursive-readdir-sync": "^1.0.6"
-  },
-  "dependencies": {
+    "recursive-readdir-sync": "^1.0.6",
     "@types/bcryptjs": "^2.4.2",
     "@types/express": "^4.16.1",
     "@types/hapi": "^18.0.1",
     "@types/jsonwebtoken": "^8.3.5",
-    "@types/node": "^11.11.5",
+    "@types/node": "^11.11.5"
+  },
+  "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "boom": "^7.3.0",
