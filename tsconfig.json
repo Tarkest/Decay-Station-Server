@@ -10,7 +10,8 @@
   },
   "include": [
     "src/**/*",
-    "index.ts"
+    "index.ts",
+    "migration/*"
   ],
   "exclude": [
     "node_modules",

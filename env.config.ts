@@ -3,7 +3,7 @@ const config = {
     entities: "database/models/**/*{.ts,.js}"
   },
   develop: {
-    entities: "database/models/**/*.js"
+    entities: "dist/database/models/**/*.js"
   }
 }
 
