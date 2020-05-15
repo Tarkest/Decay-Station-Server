@@ -32,6 +32,7 @@ class App {
   constructor() {
     createConnection(env(process.env.ENVIRONMENT_NAME))
     .then(_ => {
+        console.log(_);
         this.app.use(userChecker);
         this.app.use(bodyParser.json());
         this.app.use(headerApply);
