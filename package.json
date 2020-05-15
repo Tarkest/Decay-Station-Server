@@ -4,8 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "start": "npm run serve",
-    "serve": "node dist/index.js",
+    "start": "node dist/index.js",
     "dev": "nodemon --exec ts-node index.ts",
     "d": "nodemon --inspect './**/*.ts' --ignore 'src/**/*.spec.ts' --exec ts-node index.ts",
     "dbrun": "ts-node ./node_modules/typeorm/cli.js migration:run",
@@ -13,8 +12,7 @@
     "dbgenerate": "ts-node ./node_modules/typeorm/cli.js migration:generate -n",
     "test": "echo \"Error: no test specified\" && exit 1",
     "debug": "tsc && node-debug index.js",
-    "build": "tsc",
-    "postinstall": "npm run build"
+    "build": "tsc"
   },
   "engines": {
     "node": "10.16.0"
