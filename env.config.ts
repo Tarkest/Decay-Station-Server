@@ -22,8 +22,8 @@ const config = {
     database: "s1ffv09bhuwco1mt",
     synchronize: false,
     port: 3306,
-    entities: "dist/database/models/**/*.js",
-    migrations: "migration/*.js",
+    entities: ["dist/database/models/**/*.js"],
+    migrations: ["migration/*.js"],
     cli: {
       "migrationsDir": "migration"
     },
