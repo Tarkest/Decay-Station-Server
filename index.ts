@@ -28,21 +28,19 @@ class App {
   app: Express.Application = Express();
 
   constructor() {
-    createConnection(env(process.env.ENVIRONMENT_NAME)).catch(console.log)
-  }
-
-  listen() {
-    this.app.use(userChecker);
-    this.app.use(bodyParser.json());
-    this.app.use(headerApply);
-    setup(this.app);
-    this.app.use(handleError);
-    this.app.listen(config.port, () => {
-        console.log(`Server running on \x1b[22m\x1b[32m${process.env.ENVIRONMENT_NAME ? process.env.ENVIRONMENT_NAME : "local"}\x1b[0m environment, on \x1b[22m\x1b[32m${config.port}\x1b[0m port`);
-    });
+    createConnection(env(process.env.ENVIRONMENT_NAME))
+    .then(_ => {
+        this.app.use(userChecker);
+        this.app.use(bodyParser.json());
+        this.app.use(headerApply);
+        setup(this.app);
+        this.app.use(handleError);
+        this.app.listen(process.env.PORT, () => {
+            console.log(`Server running on \x1b[22m\x1b[32m${process.env.ENVIRONMENT_NAME ? process.env.ENVIRONMENT_NAME : "local"}\x1b[0m environment, on \x1b[22m\x1b[32m${process.env.PORT}\x1b[0m port`);
+        });
+    })
+    .catch(console.log)
   }
 }
 
-const app = new App();
-
-app.listen();
+new App();
