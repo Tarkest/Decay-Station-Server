@@ -63,7 +63,7 @@ export class CarriageData {
     public async deleteCarriageDataUpdate(req: Request, res: Response) {
         try {
           const { id } = req.query;
-          res.send(await this.typeService.removeUpdates(id));
+          res.send(await this.typeService.removeUpdates(Number(id)));
         } catch (error) {
           res.status(403).send(error.toString());
         }

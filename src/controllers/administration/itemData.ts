@@ -64,7 +64,7 @@ export class ItemData {
     public async deleteItemDataUpdate(req: Request, res: Response) {
         try {
             const { id } = req.query;
-            res.send(await this.typeService.removeUpdate(id));
+            res.send(await this.typeService.removeUpdate(Number(id)));
         } catch (error) {
             res.status(403).send(error.toString());
         }

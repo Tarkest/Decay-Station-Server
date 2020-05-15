@@ -32,10 +32,7 @@ class App {
   constructor() {
     createConnection({
       type: "mysql",
-      host: env(process.env.ENV).dbHost,
-      password: env(process.env.ENV).dbPassword,
-      username: env(process.env.ENV).dbUser,
-      database: env(process.env.ENV).dbName,
+      url: process.env.JAWSDB_URL,
       synchronize: false,
       port: 3306,
       entities: [
@@ -56,7 +53,7 @@ class App {
         setup(this.app);
         this.app.use(handleError);
         this.app.listen(config.port, () => {
-            console.log(`Server running on \x1b[22m\x1b[32m${config.port}\x1b[0m`);
+            console.log(`Server running on \x1b[22m\x1b[32m${process.env.ENVIRONMENT_NAME}\x1b[0m environment, on \x1b[22m\x1b[32m${config.port}\x1b[0m`);
         });
     })
     .catch(console.log)

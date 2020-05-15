@@ -49,12 +49,12 @@ export class RecipesData {
 
     @DELETE({path: '/recipes'})
     public async deleteRecipe(req: Request, res: Response) {
-        try {
-          const { id } = req.query;
-          res.send(await this.typeService.deleteRecipeData(id));
-        } catch (error) {
-          res.status(403).send(error.toString());
-        }
+      try {
+        const { id } = req.query;
+        res.send(await this.typeService.deleteRecipeData(Number(id)));
+      } catch (error) {
+        res.status(403).send(error.toString());
+      }
     }
 
     @DELETE({path: '/recipes/update'})

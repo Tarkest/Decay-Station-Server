@@ -41,7 +41,7 @@ export class MapData {
     public async deleteBuilding(req: Request, res: Response) {
         try {
           const { id } = req.query;
-          res.send(await this.typeService.deleteSectorData(id));
+          res.send(await this.typeService.deleteSectorData(Number(id)));
         } catch (error) {
           res.status(403).send(error.toString());
         }
@@ -51,7 +51,7 @@ export class MapData {
     public async deleteBuildingUpdate(req: Request, res: Response) {
         try {
           const { id } = req.query;
-          res.send(await this.typeService.removeUpdates(id));
+          res.send(await this.typeService.removeUpdates(Number(id)));
         } catch (error) {
           res.status(403).send(error.toString());
         }
