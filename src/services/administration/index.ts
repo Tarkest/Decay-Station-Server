@@ -5,17 +5,16 @@ import { sign } from "jsonwebtoken";
 import * as config from "../../../config.json";
 
 export default class AdministratorService {
-    private AdministratorRepository: Repository<Administrator> = getRepository(Administrator);
+  private AdministratorRepository: Repository<Administrator> = getRepository(Administrator);
 
-    public async checkUser(login: string, password: string): Promise<string> {
-        const user: Administrator = (await this.AdministratorRepository.find({ login })).shift();
+  public async checkUser(login: string, password: string): Promise<string> {
+    const user: Administrator = await this.AdministratorRepository.findOne({ where: { login } });
 
-        if(user) {
-            if(compareSync(password, user.password)) {
-                const token = sign({ adminId: user.id }, config.jwtSecret);
-                return token;
-            }
-        }
-        throw new Error('Wrong credentials');
+    if(user) {
+      if(compareSync(password, user.password)) {
+        return sign({ adminId: user.id }, config.jwtSecret);
+      }
     }
+    throw new Error('Wrong credentials');
+  }
 }

@@ -6,7 +6,7 @@ import {
   IngredientToRecipeBuffer,
   RecipeDataBuffer,
   ResultToRecipeBuffer
-} from "../../../database/models/recipes";
+} from "../../../database/models/recipesData";
 import ItemDataService, { ItemData } from "../itemData";
 import { IRecipeIngredient, IRecipeResult } from '../interfaces';
 
@@ -151,4 +151,4 @@ export default class RecipeService {
   }
 }
 
-export { RecipeData } from "../../../database/models/recipes";
+export { RecipeData } from "../../../database/models/recipesData";

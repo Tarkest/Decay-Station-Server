@@ -2,7 +2,7 @@ import { getRepository, Repository } from "typeorm";
 import {
   SectorData,
   SectorDataBuffer
-} from "../../../database/models/map";
+} from "../../../database/models/mapData";
 import ConstantsService, { EnvironmentType } from "../constants";
 
 export default class RecipeService {
@@ -22,10 +22,19 @@ export default class RecipeService {
     return this.dataRepository.save({ positionX, positionY, environment: environmentType, name });
   }
 
+  public async getSectorData(positionX: number, positionY: number) {
+    return this.dataRepository.findOne({
+      where: {
+        positionX,
+        positionY
+      }
+    })
+  }
+
   public async getSectorsData() {
     return this.dataRepository.find({
       relations: [
-        "updaeBuffer"
+        "updateBuffer"
       ],
       order: {
         positionX: "ASC",
@@ -55,4 +64,4 @@ export default class RecipeService {
   }
 }
 
-export { SectorData } from "../../../database/models/map";
+export { SectorData } from "../../../database/models/mapData";

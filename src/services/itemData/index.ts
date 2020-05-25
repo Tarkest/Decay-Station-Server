@@ -1,6 +1,6 @@
 import { getRepository, Repository } from "typeorm";
-import { ItemData, ItemDataBuffer } from "../../../database/models/item";
-import { ItemsType, ItemsRarity } from "../../../database/models/сonstants";
+import { ItemData, ItemDataBuffer } from "../../../database/models/itemData";
+import { ItemsType, ItemsRarity } from "../../../database/models/сonstantsData";
 import ConstatntsService from "../constants";
 
 export default class ItemDataService {
@@ -50,4 +50,4 @@ export default class ItemDataService {
     }
 }
 
-export { ItemData } from "../../../database/models/item";
+export { ItemData } from "../../../database/models/itemData";

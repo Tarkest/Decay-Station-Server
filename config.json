@@ -1,4 +1,3 @@
 {
-    "jwtSecret": "3F5H5Z8ZR6tlxFipU4r1",
-    "port": 3000
+  "jwtSecret": "3F5H5Z8ZR6tlxFipU4r1"
 }

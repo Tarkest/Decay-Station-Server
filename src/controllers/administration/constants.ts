@@ -14,7 +14,6 @@ export class Constants {
   // Items types
   @GET({path: '/itemstypes'})
   public async getItemsTypes(req: Request, res: Response) {
-    console.log("Begin get Items");
     try {
       const itemsTypes = await this.typeService.getItemsTypes();
       res.send({ items: itemsTypes });

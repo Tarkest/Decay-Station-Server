@@ -6,7 +6,7 @@ import {
     LocomotiveDataBuffer,
     LocomotiveBuildingSlot,
     LocomotiveBuildingSlotBuffer
-} from "../../../database/models/locomotive";
+} from "../../../database/models/locomotiveData";
 import ItemDataService, { ItemData } from "../itemData";
 import ConstantsService, { BuildingType } from "../constants";
 import { IUpgradeItem, ILocomotiveBuildingSlot } from "../interfaces";
