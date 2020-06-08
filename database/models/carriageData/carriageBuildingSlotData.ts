@@ -2,10 +2,13 @@ import { BaseEntity, PrimaryGeneratedColumn, Column, Entity, ManyToOne } from "t
 import { BuildingType } from "../сonstantsData";
 import { CarriageData } from "./carriageData";
 
-@Entity("CarriageBuildingSlot")
+@Entity()
 export class CarriageBuildingSlot extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column()
+  index: number;
 
   @Column()
   buildingSize: number;

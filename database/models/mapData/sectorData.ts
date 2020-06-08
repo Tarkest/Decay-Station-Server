@@ -1,9 +1,9 @@
-import { Entity, Column, ManyToMany, OneToOne, JoinColumn, JoinTable } from "typeorm";
+import { Entity, Column, OneToOne, JoinColumn, ManyToOne } from "typeorm";
 import { BaseIdNameEntity } from "../baseEntities";
 import { EnvironmentType } from "../сonstantsData";
 import { SectorDataBuffer } from "./sectorBuffer";
 
-@Entity("SectorData")
+@Entity()
 export class SectorData extends BaseIdNameEntity {
   @Column()
   positionX: number;
@@ -11,8 +11,8 @@ export class SectorData extends BaseIdNameEntity {
   @Column()
   positionY: number;
 
-  @ManyToMany(type => EnvironmentType, environmentType => environmentType.sectors)
-  @JoinTable({ name: "SectorDataToEnvironment" })
+  @ManyToOne(type => EnvironmentType, environmentType => environmentType.sectors)
+  @JoinColumn()
   environment: EnvironmentType;
 
   @OneToOne(type => SectorDataBuffer, buffer => buffer.currentVersion, { onDelete: "SET NULL" })

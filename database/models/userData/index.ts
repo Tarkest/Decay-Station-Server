@@ -3,7 +3,7 @@ import { Locomotive } from "../locomotive";
 import { Carriage } from "../carriage";
 import { SectorData } from "../mapData";
 
-@Entity("Accounts")
+@Entity()
 export class AccountData extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;

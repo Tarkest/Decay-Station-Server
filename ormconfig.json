@@ -10,10 +10,11 @@
     "database/models/**/*{.ts,.js}"
   ],
   "migrations": [
-    "migration/*.ts"
+    "database/migration/*.ts"
   ],
   "cli": {
-    "migrationsDir": "migration"
+    "migrationsDir": "database/migration",
+    "entitiesDir": "database/models"
   },
   "logging": true
 }

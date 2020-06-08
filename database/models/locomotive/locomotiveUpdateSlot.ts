@@ -1,7 +1,7 @@
 import { BaseEntity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, Entity } from "typeorm";
-import { Locomotive } from "./";
+import { Locomotive } from "./locomotive";
 
-@Entity("LocomotiveUpgrades")
+@Entity()
 export class LocomotiveUpdateSlot extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;

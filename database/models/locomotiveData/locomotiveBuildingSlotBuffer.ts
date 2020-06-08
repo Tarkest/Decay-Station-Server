@@ -2,13 +2,16 @@ import {Entity, Column, ManyToOne, PrimaryGeneratedColumn, BaseEntity} from "typ
 import { LocomotiveDataBuffer } from "./locomotiveDataBuffer";
 import { BuildingType } from "../сonstantsData";
 
-@Entity("LocomotivesBuildingSlotsDataBuffer")
+@Entity()
 export class LocomotiveBuildingSlotBuffer extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   level: number;
+
+  @Column()
+  index: number;
 
   @ManyToOne(type => BuildingType, typeData => typeData.locomotiveSlotsBuffers, { onDelete: "SET NULL" })
   buildingType: BuildingType;

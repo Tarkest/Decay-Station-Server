@@ -3,7 +3,7 @@ import { BaseIdNameEntity } from "../baseEntities";
 import { ItemsType, ItemsRarity } from "../сonstantsData";
 import { ItemData } from "./itemData";
 
-@Entity("ItemDataBuffer")
+@Entity()
 export class ItemDataBuffer extends BaseIdNameEntity {
   @Column()
   maxCount: number;

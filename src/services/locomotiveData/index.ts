@@ -53,6 +53,10 @@ export default class LocomotiveDataService {
     return locomotiveData;
   }
 
+  public async getLocomotiveData(id: number) {
+    return this.dataRepository.findOne({ where: { id } });
+  }
+
   public async getLocomotivesTypes() {
     const locomotivesTypes = await this.dataRepository.find({
       relations: [
@@ -129,3 +133,5 @@ export default class LocomotiveDataService {
     return this.dataRepository.remove(locomotiveData);
   }
 }
+
+export { LocomotiveData } from "../../../database/models/locomotiveData";

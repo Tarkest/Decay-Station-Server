@@ -3,7 +3,7 @@ import { ItemData } from "../itemData";
 import { Carriage } from "../carriage";
 import { CrewMember } from "../crewMember";
 
-@Entity("InventorySlots")
+@Entity()
 export class InventorySlot extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;

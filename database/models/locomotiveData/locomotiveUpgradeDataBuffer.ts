@@ -3,7 +3,7 @@ import { Entity, Column, ManyToOne } from "typeorm";
 import { LocomotiveDataBuffer } from "./locomotiveDataBuffer";
 import { ItemData } from "../itemData";
 
-@Entity("LocomotiveUpgradesDataBuffer")
+@Entity()
 export class LocomotiveDataUpgradeBuffer extends BaseUpgradeItemEntity {
   @Column()
   level: number;

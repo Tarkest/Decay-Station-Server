@@ -1,9 +1,9 @@
-import { BaseUpgradeItemEntity } from "../baseEntities";
+import { BaseUpgradeItemEntity } from "../../models/baseEntities";
 import { Entity, ManyToOne } from "typeorm";
 import { CarriageData } from "./carriageData";
 import { ItemData } from "../itemData";
 
-@Entity("CarriageAssemblyItemData")
+@Entity()
 export class CarriageAssemblyItem extends BaseUpgradeItemEntity {
 
   @ManyToOne(type => ItemData, { onDelete: "SET NULL" })

@@ -2,7 +2,7 @@ import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "t
 import { ItemData } from "../itemData";
 import { RecipeDataBuffer } from "./recipeDataBuffer";
 
-@Entity("IngredientToRecipeBuffer")
+@Entity()
 export class IngredientToRecipeBuffer extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;

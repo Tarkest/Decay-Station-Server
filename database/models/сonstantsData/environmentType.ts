@@ -1,13 +1,13 @@
-import { Entity, ManyToMany } from "typeorm";
-import { BaseIdNameEntity } from "../baseEntities";
+import { Entity, OneToMany } from "typeorm";
+import { BaseIdNameEntity } from "../../models/baseEntities";
 import { SectorData, SectorDataBuffer } from "../mapData";
 
-@Entity("EnvironmentType")
+@Entity()
 export class EnvironmentType extends BaseIdNameEntity {
 
-  @ManyToMany(type => SectorData, sector => sector.environment)
+  @OneToMany(type => SectorData, sector => sector.environment)
   sectors: SectorData[];
 
-  @ManyToMany(type => SectorDataBuffer, sectorBuffer => sectorBuffer.environment)
+  @OneToMany(type => SectorDataBuffer, sectorBuffer => sectorBuffer.environment)
   sectorsBuffers: SectorDataBuffer[];
 }

@@ -11,7 +11,7 @@
   "include": [
     "src/**/*",
     "index.ts",
-    "migration/*"
+    "database/migration/*"
   ],
   "exclude": [
     "node_modules",

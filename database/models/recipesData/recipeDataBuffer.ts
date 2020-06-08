@@ -3,7 +3,7 @@ import { IngredientToRecipeBuffer } from "./ingredientToRecipeBuffer";
 import { ResultToRecipeBuffer } from "./resultToRecipeBuffer";
 import { RecipeData } from "./recipeData";
 
-@Entity("RecipeDataBuffer")
+@Entity()
 export class RecipeDataBuffer extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;

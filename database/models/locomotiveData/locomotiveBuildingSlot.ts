@@ -2,13 +2,16 @@ import { BaseEntity, Entity, Column, ManyToOne, PrimaryGeneratedColumn } from "t
 import { LocomotiveData } from "./locomotiveData";
 import { BuildingType } from "../сonstantsData";
 
-@Entity("LocomotivesBuildingSlotsData")
+@Entity()
 export class LocomotiveBuildingSlot extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   level: number;
+
+  @Column()
+  index: number;
 
   @ManyToOne(type => BuildingType, typeData => typeData.locomotiveSlots, { onDelete: "SET NULL" })
   buildingType: BuildingType;

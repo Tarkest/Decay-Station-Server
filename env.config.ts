@@ -8,11 +8,12 @@ const config = {
     synchronize: false,
     port: 3306,
     entities: ["database/models/**/*{.ts,.js}"],
-    migrations: ["migration/*{.ts,.js}"],
+    migrations: ["database/migration/*{.ts,.js}"],
     cli: {
       "migrationsDir": "migration"
     },
-    logging: true
+    logging: true,
+    migrationsRun: true
   },
   develop: {
     type: "mysql",
@@ -23,11 +24,12 @@ const config = {
     synchronize: false,
     port: 3306,
     entities: ["dist/database/models/**/*.js"],
-    migrations: ["migration/*.js"],
+    migrations: ["database/migration/*.js"],
     cli: {
       "migrationsDir": "migration"
     },
-    logging: true
+    logging: true,
+    migrationsRun: true
   }
 }
 

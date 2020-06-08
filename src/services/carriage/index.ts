@@ -1,6 +1,6 @@
 import { getRepository, Repository } from "typeorm";
 import { Carriage } from "../../../database/models/carriage";
-import InventoryService, { InventorySlot } from "../inventory";
+import InventoryService from "../inventory";
 import CarriageDataService, { CarriageData } from "../carriageData";
 import { AccountData } from "../accountService";
 
@@ -18,7 +18,7 @@ export default class CarriageService {
 
   public async createCarriage(accountData: AccountData, carriageDataId: number) {
     const carriageData: CarriageData = await this.carriageDataService.getCarriageData(carriageDataId);
-    const carriage: Carriage = await this.dataRepository.save({ account: accountData, data: carriageData });
+    const carriage: Carriage = await this.dataRepository.save({ account: accountData, data: carriageData,  });
     await this.inventoryService.createCarriageSlots(carriage);
     return carriage;
   }

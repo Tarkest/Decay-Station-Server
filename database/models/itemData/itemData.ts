@@ -5,7 +5,7 @@ import { ItemDataBuffer } from "./itemDataBuffer";
 import { IngredientToRecipe, ResultToRecipe } from "../recipesData";
 import { InventorySlot } from "../inventory";
 
-@Entity("ItemData")
+@Entity()
 export class ItemData extends BaseIdNameEntity {
   @Column()
   inRotation: boolean;

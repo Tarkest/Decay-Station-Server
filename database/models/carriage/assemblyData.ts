@@ -1,7 +1,7 @@
 import { BaseEntity, PrimaryGeneratedColumn, JoinColumn, ManyToOne, Column, Entity } from "typeorm";
-import { Carriage } from "./";
+import { Carriage } from "./carriage";
 
-@Entity("CarriageAssemble")
+@Entity()
 export class CarriageAssembleSlot extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;

@@ -4,7 +4,7 @@ import { LocomotiveData } from "./locomotiveData";
 import { LocomotiveDataUpgradeBuffer } from "./locomotiveUpgradeDataBuffer";
 import { LocomotiveBuildingSlotBuffer } from "./locomotiveBuildingSlotBuffer"
 
-@Entity("LocomotiveDataBuffer")
+@Entity()
 export class LocomotiveDataBuffer extends BaseIdNameEntity {
   @Column()
   maxLevel: number;

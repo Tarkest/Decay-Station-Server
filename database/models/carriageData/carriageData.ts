@@ -5,7 +5,7 @@ import { CarriageBuildingSlot } from "./carriageBuildingSlotData";
 import { CarriageDataBuffer } from "./carriageDataBuffer";
 import { Carriage } from "../carriage";
 
-@Entity("CarriageData")
+@Entity()
 export class CarriageData extends BaseIdNameEntity {
   @Column()
   inRotation: boolean;

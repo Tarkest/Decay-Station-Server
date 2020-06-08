@@ -1,5 +1,6 @@
 import { Repository, getRepository } from "typeorm";
 import CarriageService from "../carriage";
+import LocomotiveService from "../locomotive";
 import { AccountData } from "../../../database/models/userData";
 import MapService, { SectorData } from "../mapData";
 import { v4 as uuid } from "uuid";
@@ -15,6 +16,7 @@ export default class AccountService {
   // Services
   private carriageService: CarriageService = new CarriageService();
   private mapService: MapService = new MapService();
+  private locomotiveService: LocomotiveService = new LocomotiveService();
 
   public async login(googleId: string) {
     let account: AccountData = await this.dataRepository.findOne({ where: { googleId }});
@@ -29,6 +31,7 @@ export default class AccountService {
   private async createAccount(googleId: string): Promise<AccountData> {
     const mapSector: SectorData = await this.mapService.getSectorData(1, 1);
     const newAccount: AccountData = await this.dataRepository.save({ userName: uuid(), googleId, currentMapSector: mapSector });
+    await this.locomotiveService.createLocomotive(newAccount, 1);
     await this.carriageService.createCarriage(newAccount, 1);
 
     return newAccount;

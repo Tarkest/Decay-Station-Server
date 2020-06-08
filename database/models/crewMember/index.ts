@@ -3,7 +3,7 @@ import { BaseIdNameEntity } from "../baseEntities";
 import { InventorySlot } from "../inventory";
 import { Carriage } from "../carriage";
 
-@Entity("CrewMember")
+@Entity()
 export class CrewMember extends BaseIdNameEntity {
   @Column("decimal", { precision: 2, scale: 2 })
   strength: number;

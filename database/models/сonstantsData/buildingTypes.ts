@@ -2,7 +2,7 @@ import { Entity, OneToMany } from "typeorm";
 import { BaseIdNameEntity } from "../baseEntities";
 import { LocomotiveBuildingSlot, LocomotiveBuildingSlotBuffer } from '../locomotiveData';
 
-@Entity("BuildingType")
+@Entity()
 export class BuildingType extends BaseIdNameEntity {
 
   @OneToMany(type => LocomotiveBuildingSlot, slot => slot.buildingType)

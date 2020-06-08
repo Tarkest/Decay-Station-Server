@@ -1,10 +1,10 @@
 import { Column, Entity, OneToMany, OneToOne, JoinColumn } from "typeorm";
-import { BaseIdNameEntity } from "../baseEntities";
+import { BaseIdNameEntity } from "../../models/baseEntities";
 import { CarriageAssemblyItemBuffer } from "./carriageAssemblyItemBuffer";
 import { CarriageBuildingSlotBuffer } from "./carriageBuildingSlotBufferData";
 import { CarriageData } from "./carriageData";
 
-@Entity("CarriageDataBuffer")
+@Entity()
 export class CarriageDataBuffer extends BaseIdNameEntity {
   @Column()
   storageCapacity: number;
