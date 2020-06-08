@@ -7,9 +7,10 @@
     "start": "node dist/index.js",
     "dev": "nodemon --exec ts-node index.ts",
     "d": "nodemon --inspect './**/*.ts' --ignore 'src/**/*.spec.ts' --exec ts-node index.ts",
-    "dbrun": "ts-node ./node_modules/typeorm/cli.js migration:run",
-    "dbrevert": "ts-node ./node_modules/typeorm/cli.js migration:revert",
-    "dbgenerate": "ts-node ./node_modules/typeorm/cli.js migration:generate -n",
+    "db": "ts-node ./node_modules/typeorm/cli.js --config ormconfig",
+    "dbrun": "npm run db migration:run",
+    "dbrevert": "npm run db migration:revert",
+    "dbgenerate": "npm run db migration:generate -- -n",
     "test": "echo \"Error: no test specified\" && exit 1",
     "debug": "tsc && node-debug index.js",
     "build": "tsc"
@@ -31,9 +32,11 @@
     "@types/node": "^11.11.5"
   },
   "dependencies": {
+    "@types/dotenv": "^8.2.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "boom": "^7.3.0",
+    "dotenv": "^8.2.0",
     "express": "^4.16.4",
     "express-jwt": "^5.3.1",
     "joi": "^14.3.1",
@@ -47,6 +50,7 @@
     "ts-node": "^8.0.3",
     "tslint": "^6.1.1",
     "typeorm": "^0.2.15",
-    "typescript": "^3.3.4000"
+    "typescript": "^3.3.4000",
+    "uuid": "^8.1.0"
   }
 }

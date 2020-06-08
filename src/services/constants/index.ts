@@ -1,5 +1,5 @@
 import { getRepository, Repository } from "typeorm";
-import { BuildingType, ItemsType, ItemsRarity, EnvironmentType } from "../../../database/models/сonstants";
+import { BuildingType, ItemsType, ItemsRarity, EnvironmentType } from "../../../database/models/сonstantsData";
 
 export default class ConstatntsService {
 
@@ -95,4 +95,4 @@ export default class ConstatntsService {
   }
 }
 
-export { BuildingType, ItemsType, ItemsRarity, EnvironmentType } from "../../../database/models/сonstants";
+export { BuildingType, ItemsType, ItemsRarity, EnvironmentType } from "../../../database/models/сonstantsData";

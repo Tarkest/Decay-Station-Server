@@ -4,7 +4,6 @@ import { createConnection } from 'typeorm';
 import * as Express from 'express';
 import bodyParser = require("body-parser");
 import { setup } from "./routes-setup";
-import * as config from "./config.json";
 import env from "./env.config";
 // middleWares
 
@@ -35,8 +34,8 @@ class App {
         this.app.use(headerApply);
         setup(this.app);
         this.app.use(handleError);
-        this.app.listen(process.env.PORT, () => {
-            console.log(`Server running on \x1b[22m\x1b[32m${process.env.ENVIRONMENT_NAME ? process.env.ENVIRONMENT_NAME : "local"}\x1b[0m environment, on \x1b[22m\x1b[32m${process.env.PORT}\x1b[0m port`);
+        this.app.listen(process.env.PORT ? process.env.PORT : 3000, () => {
+            console.log(`Server running on \x1b[22m\x1b[32m${process.env.ENVIRONMENT_NAME ? process.env.ENVIRONMENT_NAME : "local"}\x1b[0m environment, on \x1b[22m\x1b[32m${process.env.PORT ? process.env.PORT : 3000}\x1b[0m port`);
         });
     })
     .catch(console.log)

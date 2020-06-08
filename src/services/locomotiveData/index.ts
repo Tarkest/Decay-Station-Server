@@ -6,7 +6,7 @@ import {
     LocomotiveDataBuffer,
     LocomotiveBuildingSlot,
     LocomotiveBuildingSlotBuffer
-} from "../../../database/models/locomotive";
+} from "../../../database/models/locomotiveData";
 import ItemDataService, { ItemData } from "../itemData";
 import ConstantsService, { BuildingType } from "../constants";
 import { IUpgradeItem, ILocomotiveBuildingSlot } from "../interfaces";
@@ -51,6 +51,10 @@ export default class LocomotiveDataService {
       buildingSlotsData[index] = await this.buildingSlotsRepository.save({ level, buildingType, locomotiveData });
     });
     return locomotiveData;
+  }
+
+  public async getLocomotiveData(id: number) {
+    return this.dataRepository.findOne({ where: { id } });
   }
 
   public async getLocomotivesTypes() {
@@ -129,3 +133,5 @@ export default class LocomotiveDataService {
     return this.dataRepository.remove(locomotiveData);
   }
 }
+
+export { LocomotiveData } from "../../../database/models/locomotiveData";

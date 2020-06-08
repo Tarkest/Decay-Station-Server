@@ -6,7 +6,7 @@ import {
   CarriageBuildingSlotBuffer,
   CarriageData,
   CarriageDataBuffer
-} from "../../../database/models/carriage";
+} from "../../../database/models/carriageData";
 import ItemDataService, { ItemData } from "../itemData";
 import ConstantsService, { BuildingType } from "../constants";
 import { IAssemablyItem, ICarriageBuildingSlot } from "../interfaces";
@@ -70,6 +70,10 @@ export default class CarriageDataService {
     return { items: carriagesData }
   }
 
+  public async getCarriageData(id: number) {
+    return this.dataRepository.findOne({ where: { id } });
+  }
+
   public async saveUpdateForCarriage(id: number, storageCapacity: number, crewCapacity: number, assemblyItems: IAssemablyItem[], buildingSlots: ICarriageBuildingSlot[]): Promise<CarriageData> {
     const carriageData: CarriageData = await this.dataRepository.findOne({ 
       where: { id },
@@ -130,3 +134,5 @@ export default class CarriageDataService {
     return this.dataRepository.remove(carriageData);
   }
 }
+
+export { CarriageData } from "../../../database/models/carriageData";

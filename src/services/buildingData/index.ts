@@ -1,5 +1,5 @@
 import { getRepository, Repository } from "typeorm";
-import { BuildingData, BuildingDataBuffer } from "../../../database/models/buildings";
+import { BuildingData, BuildingDataBuffer } from "../../../database/models/buildingsData";
 import RecipeService, { RecipeData } from "../recipesData";
 import ConstantsService, { BuildingType } from "../constants";
 
