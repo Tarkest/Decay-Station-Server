@@ -1,6 +1,6 @@
 import { BaseEntity, Column, PrimaryGeneratedColumn, OneToOne, OneToMany, Entity, ManyToOne, JoinColumn } from "typeorm";
-import { Locomotive } from "../locomotive";
-import { Carriage } from "../carriage";
+import { Locomotive } from "../locomotive/locomotive";
+import { Carriage } from "../carriage/carriage";
 import { SectorData } from "../mapData";
 
 @Entity()

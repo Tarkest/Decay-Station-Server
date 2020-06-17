@@ -1,5 +1,5 @@
 import { BaseUpgradeItemEntity } from "../../models/baseEntities";
-import { Entity, ManyToOne } from "typeorm";
+import { Entity, ManyToOne, Column } from "typeorm";
 import { CarriageData } from "./carriageData";
 import { ItemData } from "../itemData";
 

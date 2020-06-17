@@ -2,11 +2,12 @@
   "compilerOptions": {
     "target": "es2017",
     "module": "commonjs",
-    "sourceMap": true,
+    "sourceMap": false,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "resolveJsonModule": true,
-    "outDir": "dist",
+    "removeComments": true,
+    "outDir": "dist"
   },
   "include": [
     "src/**/*",
