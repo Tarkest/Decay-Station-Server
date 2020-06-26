@@ -14,6 +14,7 @@ export class Main {
     try {
       res.send(await this.accountService.login(googleId));
     } catch (error){
+      console.log(error);
       res.status(401).send("Wrong credentials");
     }
   }

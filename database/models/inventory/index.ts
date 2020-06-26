@@ -11,6 +11,9 @@ export class InventorySlot extends BaseEntity {
   @Column({ default: 0 })
   count: number;
 
+  @Column()
+  userId: number;
+
   @ManyToOne(type => ItemData, item => item.inventorySlots, { onDelete: "SET NULL" })
   @JoinColumn()
   item: ItemData;

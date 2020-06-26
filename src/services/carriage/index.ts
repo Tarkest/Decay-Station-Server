@@ -22,6 +22,8 @@ export default class CarriageService {
     const carriageData = await this.carriageDataService.getCarriageData(carriageDataId);
     const carriage = await this.dataRepository.save({ account: accountData, data: carriageData });
 
+    console.log(carriage);
+
     if(carriageData.assemblyItems.length) {
 
       await this.assemblySlotsRepository.save(
@@ -39,6 +41,7 @@ export default class CarriageService {
       await this.buildingsRepository.save(
         carriageData.buildingSlots
         .map((building, index) => ({
+          ...building,
           index,
           carriage
         }))
