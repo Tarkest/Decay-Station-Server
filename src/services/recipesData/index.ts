@@ -13,10 +13,10 @@ import { IRecipeIngredient, IRecipeResult } from '../interfaces';
 export default class RecipeService {
 
   // Repositories
-  private dataRepository = getRepository(RecipeData);
+  private recipeDataRepository = getRepository(RecipeData);
   private ingredientRepository = getRepository(IngredientToRecipe);
   private resultRepository = getRepository(ResultToRecipe);
-  private dataBufferRepository = getRepository(RecipeDataBuffer);
+  private recipeDataBufferRepository = getRepository(RecipeDataBuffer);
   private ingredientBufferRepository = getRepository(IngredientToRecipeBuffer);
   private resultBufferRepository = getRepository(ResultToRecipeBuffer);
 
@@ -45,7 +45,7 @@ export default class RecipeService {
 
     const ingredientsData: IngredientToRecipe[] = [];
     const resultsData: ResultToRecipe[] = [];
-    const resipeData = await this.dataRepository.save({ inRotation: false });
+    const resipeData = await this.recipeDataRepository.save({ inRotation: false });
 
     ingredients.map(async ({ count, item }, index) => {
       ingredientsData[index] = await this.ingredientRepository.save({ item, count, recipe: resipeData });
@@ -59,7 +59,7 @@ export default class RecipeService {
   }
 
   public async getRecipesData() {
-    return this.dataRepository.find({
+    return this.recipeDataRepository.find({
       relations: [
         "ingredients",
         "results",
@@ -75,11 +75,11 @@ export default class RecipeService {
   }
 
   public async getRecipeById(id: number) {
-    return this.dataRepository.findOne({ where: { id } });
+    return this.recipeDataRepository.findOne({ where: { id } });
   }
 
   public async saveUpdateForRecipe(id: number, ingredients: IRecipeIngredient[], results: IRecipeResult[]): Promise<RecipeData> {
-    const recipeData = await this.dataRepository.findOne({
+    const recipeData = await this.recipeDataRepository.findOne({
       where: {
         id
       },
@@ -116,7 +116,7 @@ export default class RecipeService {
 
     const ingredientsBufferData: IngredientToRecipeBuffer[] = [];
     const resultsBufferData: ResultToRecipeBuffer[] = [];
-    const recipeDataBuffer = await this.dataBufferRepository.save({ ...recipeData.updateBuffer, currentVersion: recipeData });
+    const recipeDataBuffer = await this.recipeDataBufferRepository.save({ ...recipeData.updateBuffer, currentVersion: recipeData });
 
     ingredients.map(async ({ count, item }, index) => {
       ingredientsBufferData[index] = await this.ingredientBufferRepository.save({ count, item, recipe: recipeDataBuffer });
@@ -126,19 +126,19 @@ export default class RecipeService {
       resultsBufferData[index] = await this.resultBufferRepository.save({ count, dropChance, item, recipe: recipeDataBuffer });
     });
 
-    return this.dataRepository.save({ ...recipeData, updateBuffer: recipeDataBuffer });
+    return this.recipeDataRepository.save({ ...recipeData, updateBuffer: recipeDataBuffer });
   }
 
   public async changeRotationStatus(id: number): Promise<RecipeData> {
-    const recipeData = await this.dataRepository.findOne({ where: { id } });
+    const recipeData = await this.recipeDataRepository.findOne({ where: { id } });
 
     if(!recipeData) throw Error("There is no recipe with this id");
 
-    return this.dataRepository.save({ ...recipeData, inRotation: !recipeData.inRotation });
+    return this.recipeDataRepository.save({ ...recipeData, inRotation: !recipeData.inRotation });
   }
 
   public async removeUpdates(id: number): Promise<RecipeDataBuffer> {
-    const updateBuffer = await this.dataBufferRepository.findOne({
+    const updateBuffer = await this.recipeDataBufferRepository.findOne({
       where: {
         id
       },
@@ -153,11 +153,11 @@ export default class RecipeService {
     await this.ingredientBufferRepository.remove(updateBuffer.ingredients);
     await this.resultBufferRepository.remove(updateBuffer.results);
 
-    return this.dataBufferRepository.remove(updateBuffer);
+    return this.recipeDataBufferRepository.remove(updateBuffer);
   }
 
   public async deleteRecipeData(id: number): Promise<RecipeData> {
-    const recipe = await this.dataRepository.findOne({
+    const recipe = await this.recipeDataRepository.findOne({
       where: {
         id
       },
@@ -173,7 +173,7 @@ export default class RecipeService {
     if (recipe.updateBuffer) {
       await this.ingredientBufferRepository.remove(recipe.updateBuffer.ingredients);
       await this.resultBufferRepository.remove(recipe.updateBuffer.results);
-      await this.dataBufferRepository.remove(recipe.updateBuffer);
+      await this.recipeDataBufferRepository.remove(recipe.updateBuffer);
     }
 
     if(!recipe) throw Error("There is no Recipe with this id");
@@ -181,6 +181,6 @@ export default class RecipeService {
     await this.ingredientRepository.remove(recipe.ingredients);
     await this.resultRepository.remove(recipe.results);
 
-    return this.dataRepository.remove(recipe);
+    return this.recipeDataRepository.remove(recipe);
   }
 }

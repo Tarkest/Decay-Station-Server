@@ -8,7 +8,7 @@ export default class LocomotiveService {
 
   // Repositories
 
-  private dataRepository = getRepository(Locomotive);
+  private locomotiveRepository = getRepository(Locomotive);
   private buildingsRepository = getRepository(LocomotiveBuilding);
   private upgradesSlotsRepository = getRepository(LocomotiveUpdateSlot);
 
@@ -18,7 +18,7 @@ export default class LocomotiveService {
 
   public async createLocomotive(accountData: AccountData, locomotiveDataId: number) {
     const locomotiveData = await this.locomotiveDataService.getLocomotiveData(locomotiveDataId);
-    const locomotive = await this.dataRepository.save({ account: accountData, name: accountData.userName, data: locomotiveData, level: 1 });
+    const locomotive = await this.locomotiveRepository.save({ account: accountData, name: accountData.userName, data: locomotiveData, level: 1 });
 
     await this.buildingsRepository.save(
       locomotiveData.buildingSlots

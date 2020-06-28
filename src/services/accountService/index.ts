@@ -11,7 +11,7 @@ import * as config from "../../../config.json";
 export default class AccountService {
 
   // Repositories
-  private dataRepository = getRepository(AccountData);
+  private accountDataRepository = getRepository(AccountData);
 
   // Services
   private carriageService = new CarriageService();
@@ -19,7 +19,7 @@ export default class AccountService {
   private locomotiveService = new LocomotiveService();
 
   public async login(googleId: string) {
-    let account = await this.dataRepository.findOne({ where: { googleId }});
+    let account = await this.accountDataRepository.findOne({ where: { googleId }});
 
     if(!account) {
       account = await this.createAccount(googleId);
@@ -30,7 +30,7 @@ export default class AccountService {
 
   private async createAccount(googleId: string): Promise<AccountData> {
     const mapSector = await this.mapService.getSectorData(1, 1);
-    const newAccount = await this.dataRepository.save({ userName: uuid(), googleId, currentMapSector: mapSector });
+    const newAccount = await this.accountDataRepository.save({ userName: uuid(), googleId, currentMapSector: mapSector });
     await this.locomotiveService.createLocomotive(newAccount, 1);
     await this.carriageService.createCarriage(newAccount, 1);
 
@@ -38,7 +38,7 @@ export default class AccountService {
   }
 
   public async getAccountData(userId: number) {
-    return this.dataRepository.findOne({
+    return this.accountDataRepository.findOne({
       where: {
         id: userId
       },
@@ -64,7 +64,7 @@ export default class AccountService {
         "carriages.inventory",
         "carriages.inventory.item",
       ]
-    });
+    }).then((data) => ({ ...data, id: undefined })); //Exclude id from response
   }
 }
 

@@ -11,7 +11,7 @@ export class AccountData extends BaseEntity {
   @Column()
   userName: string;
 
-  @Column()
+  @Column({ select: false })
   googleId: string;
 
   @ManyToOne(type => SectorData, { onDelete: "SET NULL" })

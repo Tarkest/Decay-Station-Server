@@ -13,14 +13,14 @@ export default class InventoryService {
 
   // Repositories
 
-  private dataRepository = getRepository(InventorySlot);
+  private inventorySlotsRepository = getRepository(InventorySlot);
 
   // Services
 
   private itemDataService = new ItemDataService();
 
   public async getInventoryData(holderId: number, holderType: InventoryHolder) {
-    return this.dataRepository.find({
+    return this.inventorySlotsRepository.find({
       where: {
         [holderType]: holderId
       },
@@ -33,7 +33,7 @@ export default class InventoryService {
   public async createCarriageSlots(carriageData: Carriage): Promise<boolean> {
 
     for (let slotIndex = 0; slotIndex < carriageData.data.storageCapacity; slotIndex++) {
-      await this.dataRepository.save({ carrige: carriageData });
+      await this.inventorySlotsRepository.save({ carrige: carriageData, userId: carriageData.account.id });
     }
 
     return true;
@@ -42,11 +42,11 @@ export default class InventoryService {
   public async createCrewMemberSlots(crewMemberData: CrewMember): Promise<boolean> {
 
     for (let equipmentSlotIndex = 0; equipmentSlotIndex < 4; equipmentSlotIndex++) {
-      await this.dataRepository.save({ crewMemberEquipment: crewMemberData });
+      await this.inventorySlotsRepository.save({ crewMemberEquipment: crewMemberData });
     }
 
     for (let slotIndex = 0; slotIndex < 30; slotIndex++) {
-      await this.dataRepository.save({ crewMember: crewMemberData });
+      await this.inventorySlotsRepository.save({ crewMember: crewMemberData });
     }
 
     return true;
@@ -60,14 +60,14 @@ export default class InventoryService {
 
     if (item.maxCount > count) count = item.maxCount;
 
-    return this.dataRepository.save({ id: slotId, item, count });
+    return this.inventorySlotsRepository.save({ id: slotId, item, count });
   }
 
   public async moveItem(senderSlotId: number, recieverSlotId: number): Promise<InventorySlot> {
 
     if (senderSlotId === recieverSlotId) throw Error("Can not move item to same slot");
 
-    const senderSlot = await this.dataRepository.findOne({
+    const senderSlot = await this.inventorySlotsRepository.findOne({
       where: {
         id: senderSlotId
       },
@@ -80,7 +80,7 @@ export default class InventoryService {
 
     if (!senderSlot.item) throw Error("There is no item for move");
 
-    const recieverSlot = await this.dataRepository.findOne({
+    const recieverSlot = await this.inventorySlotsRepository.findOne({
       where: {
         id: recieverSlotId
       },
@@ -107,13 +107,13 @@ export default class InventoryService {
   }
 
   private async moveSlot(senderSlot: InventorySlot, recieverSlot: InventorySlot): Promise<InventorySlot> {
-    await this.dataRepository.save({
+    await this.inventorySlotsRepository.save({
       ...recieverSlot,
       item: senderSlot.item,
       count: senderSlot.count
     });
 
-    return this.dataRepository.save({
+    return this.inventorySlotsRepository.save({
       ...senderSlot,
       item: null,
       count: 0
@@ -124,13 +124,13 @@ export default class InventoryService {
     const countSum = senderSlot.count + recieverSlot.count
     const fit = countSum < senderSlot.item.maxCount;
 
-    await this.dataRepository.save({
+    await this.inventorySlotsRepository.save({
       ...recieverSlot,
       item: senderSlot.item,
       count: fit ? countSum : senderSlot.item.maxCount
     });
 
-    return this.dataRepository.save({
+    return this.inventorySlotsRepository.save({
       ...senderSlot,
       item: fit ? null : senderSlot.item,
       count: fit ? 0 : countSum - senderSlot.item.maxCount
@@ -138,13 +138,13 @@ export default class InventoryService {
   }
 
   private async swapSlot(senderSlot: InventorySlot, recieverSlot: InventorySlot): Promise<InventorySlot> {
-    await this.dataRepository.save({
+    await this.inventorySlotsRepository.save({
       ...recieverSlot,
       item: senderSlot.item,
       count: senderSlot.count
     });
 
-    return this.dataRepository.save({
+    return this.inventorySlotsRepository.save({
       ...senderSlot,
       item: recieverSlot.item,
       count: recieverSlot.count

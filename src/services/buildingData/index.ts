@@ -7,8 +7,8 @@ export default class BuildingService {
 
   // Repositories
 
-  private dataRepository = getRepository(BuildingData);
-  private dataBufferRepository = getRepository(BuildingDataBuffer);
+  private buildingDataRepository = getRepository(BuildingData);
+  private buildingDataBufferRepository = getRepository(BuildingDataBuffer);
 
   // Services
 
@@ -17,7 +17,7 @@ export default class BuildingService {
 
   public async createBuildingData(name: string, size: number, typeId: number, recipes: any[]): Promise<BuildingData> {
 
-    const checkType = await this.dataRepository.findOne({ where: { name } });
+    const checkType = await this.buildingDataRepository.findOne({ where: { name } });
 
     if(checkType) throw Error("There is building with this name");
 
@@ -29,11 +29,11 @@ export default class BuildingService {
 
     const buildingType = await this.constantsService.getBuildingsType(typeId);
 
-    return this.dataRepository.save({ name, type: buildingType, size, recipes });
+    return this.buildingDataRepository.save({ name, type: buildingType, size, recipes });
   }
 
   public async getBuildingsTypes() {
-    return this.dataRepository.find({
+    return this.buildingDataRepository.find({
       relations: [
         "type",
         "recipes",
@@ -44,7 +44,7 @@ export default class BuildingService {
 
   public async saveUpdateForBuilding(id: number, size: number, typeId: number, recipes: any[]): Promise<BuildingData> {
 
-    const buildingData = await this.dataRepository.findOne({
+    const buildingData = await this.buildingDataRepository.findOne({
       where: { id },
       relations: [
         "type",
@@ -65,24 +65,24 @@ export default class BuildingService {
       return recipeData;
     });
 
-    const updateBuffer = await this.dataBufferRepository.save({ ...buildingData, size, type: buildingType, recipes, currentVersion: buildingData });
+    const updateBuffer = await this.buildingDataBufferRepository.save({ ...buildingData, size, type: buildingType, recipes, currentVersion: buildingData });
 
-    return this.dataRepository.save({ ...buildingData, updateBuffer });
+    return this.buildingDataRepository.save({ ...buildingData, updateBuffer });
   }
 
   public async removeUpdates(id: number): Promise<BuildingDataBuffer> {
-    const updateBuffer = await this.dataBufferRepository.findOne({ where: { id } });
+    const updateBuffer = await this.buildingDataBufferRepository.findOne({ where: { id } });
 
     if(!updateBuffer) throw Error("There is no incoming update already, please reload the editor");
 
-    return this.dataBufferRepository.remove(updateBuffer);
+    return this.buildingDataBufferRepository.remove(updateBuffer);
   }
 
   public async deleteBuildingData(id: number): Promise<BuildingData> {
-    const buildingData = await this.dataRepository.findOne({ where: { id } });
+    const buildingData = await this.buildingDataRepository.findOne({ where: { id } });
 
     if(!buildingData) throw Error("There is no building with this id");
 
-    return this.dataRepository.remove(buildingData);
+    return this.buildingDataRepository.remove(buildingData);
   }
 }

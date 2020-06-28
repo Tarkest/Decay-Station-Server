@@ -9,7 +9,7 @@ export default class CarriageService {
 
   // Repositories
 
-  private dataRepository = getRepository(Carriage);
+  private carriageRepository = getRepository(Carriage);
   private assemblySlotsRepository = getRepository(CarriageAssembleSlot);
   private buildingsRepository = getRepository(CarriageBuilding);
 
@@ -20,7 +20,7 @@ export default class CarriageService {
 
   public async createCarriage(accountData: AccountData, carriageDataId: number) {
     const carriageData = await this.carriageDataService.getCarriageData(carriageDataId);
-    const carriage = await this.dataRepository.save({ account: accountData, data: carriageData });
+    const carriage = await this.carriageRepository.save({ account: accountData, data: carriageData });
 
     console.log(carriage);
 
