@@ -2,6 +2,7 @@ import { BaseEntity, Column, PrimaryGeneratedColumn, OneToOne, OneToMany, Entity
 import { Locomotive } from "../locomotive/locomotive";
 import { Carriage } from "../carriage/carriage";
 import { SectorData } from "../mapData";
+import { CrewMember } from "../crewMember";
 
 @Entity()
 export class AccountData extends BaseEntity {
@@ -13,6 +14,9 @@ export class AccountData extends BaseEntity {
 
   @Column({ select: false })
   googleId: string;
+
+  @OneToOne(type => CrewMember, driver => driver.account, { onDelete: "CASCADE" })
+  driver: CrewMember;
 
   @ManyToOne(type => SectorData, { onDelete: "SET NULL" })
   @JoinColumn()

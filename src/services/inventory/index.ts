@@ -19,7 +19,7 @@ export default class InventoryService {
 
   private itemDataService = new ItemDataService();
 
-  public async getInventoryData(holderId: number, holderType: InventoryHolder) {
+  public async getInventoryData(holderId: number, holderType: InventoryHolder): Promise<InventorySlot[]> {
     return this.inventorySlotsRepository.find({
       where: {
         [holderType]: holderId
@@ -39,20 +39,20 @@ export default class InventoryService {
     return true;
   }
 
-  public async createCrewMemberSlots(crewMemberData: CrewMember): Promise<boolean> {
+  public async createCrewMemberSlots(crewMemberData: CrewMember, userId: number): Promise<boolean> {
 
     for (let equipmentSlotIndex = 0; equipmentSlotIndex < 4; equipmentSlotIndex++) {
-      await this.inventorySlotsRepository.save({ crewMemberEquipment: crewMemberData });
+      await this.inventorySlotsRepository.save({ crewMemberEquipment: crewMemberData, userId });
     }
 
     for (let slotIndex = 0; slotIndex < 30; slotIndex++) {
-      await this.inventorySlotsRepository.save({ crewMember: crewMemberData });
+      await this.inventorySlotsRepository.save({ crewMember: crewMemberData, userId });
     }
 
     return true;
   }
 
-  public async addItem(slotId: number, itemId: number, count: number) {
+  public async addItem(slotId: number, itemId: number, count: number): Promise<InventorySlot> {
 
     const item = await this.itemDataService.getItemById(itemId);
 

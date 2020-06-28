@@ -2,6 +2,7 @@ import { getRepository } from "typeorm";
 import CarriageService from "../carriage";
 import LocomotiveService from "../locomotive";
 import { AccountData } from "../../../database/models/userData";
+import CrewMemberService from "../crewMemberService";
 import MapService from "../mapData";
 import { v4 as uuid } from "uuid";
 import { sign } from "jsonwebtoken";
@@ -17,6 +18,7 @@ export default class AccountService {
   private carriageService = new CarriageService();
   private mapService = new MapService();
   private locomotiveService = new LocomotiveService();
+  private crewMemberService = new CrewMemberService();
 
   public async login(googleId: string) {
     let account = await this.accountDataRepository.findOne({ where: { googleId }});
@@ -33,6 +35,7 @@ export default class AccountService {
     const newAccount = await this.accountDataRepository.save({ userName: uuid(), googleId, currentMapSector: mapSector });
     await this.locomotiveService.createLocomotive(newAccount, 1);
     await this.carriageService.createCarriage(newAccount, 1);
+    await this.crewMemberService.createDriver(newAccount);
 
     return newAccount;
   }
@@ -43,6 +46,11 @@ export default class AccountService {
         id: userId
       },
       relations: [
+        "driver",
+        "driver.inventory",
+        "driver.inventory.item",
+        "driver.equipment",
+        "driver.equipment.item",
         "currentMapSector",
         "locomotive",
         "locomotive.data",
