@@ -4,6 +4,7 @@ import InventoryService from "../inventory";
 import CarriageDataService from "../carriageData";
 import { AccountData } from "../accountService";
 
+export { Carriage } from "../../../database/models/carriage";
 
 export default class CarriageService {
 
@@ -18,11 +19,9 @@ export default class CarriageService {
   private inventoryService = new InventoryService();
   private carriageDataService = new CarriageDataService();
 
-  public async createCarriage(accountData: AccountData, carriageDataId: number) {
+  public async createCarriage(accountData: AccountData, carriageDataId: number): Promise<Carriage> {
     const carriageData = await this.carriageDataService.getCarriageData(carriageDataId);
     const carriage = await this.carriageRepository.save({ account: accountData, data: carriageData });
-
-    console.log(carriage);
 
     if(carriageData.assemblyItems.length) {
 
