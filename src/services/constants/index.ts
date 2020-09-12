@@ -5,10 +5,10 @@ export default class ConstatntsService {
 
   // Repositories
 
-  private buildingsTypeRepository: Repository<BuildingType> = getRepository(BuildingType);
-  private itemsTypeRepository: Repository<ItemsType> = getRepository(ItemsType);
-  private itemsRarityRepository: Repository<ItemsRarity> = getRepository(ItemsRarity);
-  private environmentTypeRepository: Repository<EnvironmentType> = getRepository(EnvironmentType);
+  private buildingsTypeRepository = getRepository(BuildingType);
+  private itemsTypeRepository = getRepository(ItemsType);
+  private itemsRarityRepository = getRepository(ItemsRarity);
+  private environmentTypeRepository = getRepository(EnvironmentType);
 
   // Buildings Types
   public getBuildingsTypes(): Promise<BuildingType[]> {
@@ -20,13 +20,15 @@ export default class ConstatntsService {
   }
 
   public async createBuildingsType(name: string): Promise<BuildingType> {
-    const testType: BuildingType = await this.buildingsTypeRepository.findOne({ where: { name } });
+    const testType = await this.buildingsTypeRepository.findOne({ where: { name } });
+
     if(testType) throw Error("Building type with this name is already exist");
     return this.buildingsTypeRepository.save({ name });
   }
 
   public async deleteBuildingsType(id: number): Promise<BuildingType> {
-    const type: BuildingType = await this.buildingsTypeRepository.findOne({ where: { id } });
+    const type = await this.buildingsTypeRepository.findOne({ where: { id } });
+
     if(!type) throw Error("Building type with this name is not exist");
     return this.buildingsTypeRepository.remove(type);
   }
@@ -41,13 +43,15 @@ export default class ConstatntsService {
   }
 
   public async createItemsType(name: string): Promise<ItemsType> {
-    const testType: ItemsType = await this.itemsTypeRepository.findOne({ where: { name } });
+    const testType = await this.itemsTypeRepository.findOne({ where: { name } });
+
     if(testType) throw Error("Items type with this name is already exist");
     return this.itemsTypeRepository.save({ name });
   }
 
   public async deleteItemsType(id: number): Promise<ItemsType> {
-    const type: ItemsType = await this.itemsTypeRepository.findOne({ where: { id } });
+    const type = await this.itemsTypeRepository.findOne({ where: { id } });
+
     if(!type) throw Error("Items type with this name is not exist");
     return this.itemsTypeRepository.remove(type);
   }
@@ -62,13 +66,15 @@ export default class ConstatntsService {
   }
 
   public async createItemsRarity(name: string): Promise<ItemsRarity> {
-    const testType: ItemsRarity = await this.itemsRarityRepository.findOne({ where: { name } });
+    const testType = await this.itemsRarityRepository.findOne({ where: { name } });
+
     if(testType) throw Error("Items rarity with this name is already exist");
     return this.itemsRarityRepository.save({ name });
   }
 
   public async deleteItemsRarity(id: number): Promise<ItemsRarity> {
-    const type: ItemsRarity = await this.itemsRarityRepository.findOne({ where: { id } });
+    const type = await this.itemsRarityRepository.findOne({ where: { id } });
+
     if(!type) throw Error("Items rarity with this name is not exist");
     return this.itemsRarityRepository.remove(type);
   }
@@ -83,16 +89,16 @@ export default class ConstatntsService {
   }
 
   public async createEnvironmentsType(name: string): Promise<EnvironmentType> {
-    const testType: EnvironmentType = await this.environmentTypeRepository.findOne({ where: { name } });
+    const testType = await this.environmentTypeRepository.findOne({ where: { name } });
+
     if(testType) throw Error("Environment type with this name is already exist");
     return this.environmentTypeRepository.save({ name });
   }
 
   public async deleteEnvironmentsType(id: number): Promise<EnvironmentType> {
-    const type: EnvironmentType = await this.environmentTypeRepository.findOne({ where: { id } });
+    const type = await this.environmentTypeRepository.findOne({ where: { id } });
+
     if(!type) throw Error("Environment type with this name is not exist");
     return this.environmentTypeRepository.remove(type);
   }
 }
-
-export { BuildingType, ItemsType, ItemsRarity, EnvironmentType } from "../../../database/models/сonstantsData";

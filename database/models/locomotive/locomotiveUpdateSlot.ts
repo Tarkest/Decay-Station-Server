@@ -1,5 +1,6 @@
 import { BaseEntity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, Entity } from "typeorm";
 import { Locomotive } from "./locomotive";
+import { ItemData } from "../itemData";
 
 @Entity()
 export class LocomotiveUpdateSlot extends BaseEntity {
@@ -11,6 +12,10 @@ export class LocomotiveUpdateSlot extends BaseEntity {
 
   @Column()
   requiredCount: number;
+
+  @ManyToOne(type => ItemData, { onDelete: "SET NULL" })
+  @JoinColumn()
+  item: ItemData;
 
   @ManyToOne(type => Locomotive, locomotive => locomotive.upgradeSlots, { onDelete: "SET NULL" })
   @JoinColumn()

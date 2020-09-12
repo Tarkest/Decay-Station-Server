@@ -1,5 +1,5 @@
 import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
-import { BuildingData } from "../buildingsData/buildingData";
+import { Building } from "../buildings/building";
 import { Carriage } from "./carriage";
 
 @Entity()
@@ -10,9 +10,9 @@ export class CarriageBuilding extends BaseEntity {
   @Column()
   index: number;
 
-  @ManyToOne(type => BuildingData, buildingData => buildingData.carriagesBuildings, { onDelete: "SET NULL" })
+  @ManyToOne(type => Building, buildingData => buildingData.carriageBuilding, { onDelete: "SET NULL" })
   @JoinColumn()
-  currentBuilding: BuildingData;
+  currentBuilding: Building;
 
   @ManyToOne(type => Carriage, carriage => carriage.buildings, { onDelete: "SET NULL" })
   @JoinColumn()

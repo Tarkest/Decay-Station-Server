@@ -1,4 +1,4 @@
-import { getRepository, Repository } from "typeorm";
+import { getRepository } from "typeorm";
 import {
     LocomotiveData,
     LocomotiveDataUpgrade,
@@ -7,58 +7,73 @@ import {
     LocomotiveBuildingSlot,
     LocomotiveBuildingSlotBuffer
 } from "../../../database/models/locomotiveData";
-import ItemDataService, { ItemData } from "../itemData";
-import ConstantsService, { BuildingType } from "../constants";
+import ItemDataService from "../itemData";
+import ConstantsService from "../constants";
 import { IUpgradeItem, ILocomotiveBuildingSlot } from "../interfaces";
 
 export default class LocomotiveDataService {
 
   // Repositories
 
-  private dataRepository: Repository<LocomotiveData> = getRepository(LocomotiveData);
-  private upgradesDataRepository: Repository<LocomotiveDataUpgrade> = getRepository(LocomotiveDataUpgrade);
-  private dataBufferRepository: Repository<LocomotiveDataBuffer> = getRepository(LocomotiveDataBuffer);
-  private upgradesDataBufferRepository: Repository<LocomotiveDataUpgradeBuffer> = getRepository(LocomotiveDataUpgradeBuffer);
-  private buildingSlotsRepository: Repository<LocomotiveBuildingSlot> = getRepository(LocomotiveBuildingSlot);
-  private buildingSlotsBufferRepository: Repository<LocomotiveBuildingSlotBuffer> = getRepository(LocomotiveBuildingSlotBuffer);
+  private locomotiveDataRepository = getRepository(LocomotiveData);
+  private upgradesDataRepository = getRepository(LocomotiveDataUpgrade);
+  private locomotiveDataBufferRepository = getRepository(LocomotiveDataBuffer);
+  private upgradesDataBufferRepository = getRepository(LocomotiveDataUpgradeBuffer);
+  private buildingSlotsRepository = getRepository(LocomotiveBuildingSlot);
+  private buildingSlotsBufferRepository = getRepository(LocomotiveBuildingSlotBuffer);
 
   // Services
 
-  private itemService: ItemDataService = new ItemDataService();
-  private constantsService: ConstantsService = new ConstantsService();
+  private itemService = new ItemDataService();
+  private constantsService = new ConstantsService();
 
   public async createLocomotiveData(name: string, maxLevel: number, upgrades: IUpgradeItem[], buildingSlots: ILocomotiveBuildingSlot[]): Promise<LocomotiveData> {
-    const checkType: LocomotiveData = await this.dataRepository.findOne({ where: { name }});
+    const checkType = await this.locomotiveDataRepository.findOne({ where: { name }});
+
     if(checkType) throw Error("Locomotive with this name already exists");
+
     for (let upgradeIndex = 0; upgradeIndex < maxLevel - 1; upgradeIndex++) {
       let { item, count } = upgrades[upgradeIndex];
-      const itemData: ItemData = await this.itemService.getItemById(item.id);
+      const itemData = await this.itemService.getItemById(item.id);
+
       if(!itemData) throw Error("One of item have invalid item id");
       if(count > itemData.maxCount) count = itemData.maxCount;
     }
+
     for (let buildingSlotIndex = 0; buildingSlotIndex < maxLevel; buildingSlotIndex++) {
       let { buildingType } = buildingSlots[buildingSlotIndex];
-      const buildingTypeData: BuildingType = await this.constantsService.getBuildingsType(buildingType.id);
+      const buildingTypeData = await this.constantsService.getBuildingsType(buildingType.id);
+
       if(!buildingTypeData) throw Error("One of building slot have invalid building type");
     }
-    const upgradesData: LocomotiveDataUpgrade[] = [];
-    const buildingSlotsData: LocomotiveBuildingSlot[] = [];
-    const locomotiveData: LocomotiveData = await this.dataRepository.save({ name, inRotation: false, maxLevel });
-    upgrades.map(async ({ item, count, level }, index) => {
-      upgradesData[index] = await this.upgradesDataRepository.save({ item, level, count, locomotiveData });
+
+    const locomotiveData = await this.locomotiveDataRepository.save({ name, inRotation: false, maxLevel });
+
+    upgrades.map(async ({ item, count, level }) => {
+      await this.upgradesDataRepository.save({ item, level, count, locomotiveData });
     });
+
     buildingSlots.map(async ({ buildingType, level }, index) => {
-      buildingSlotsData[index] = await this.buildingSlotsRepository.save({ level, buildingType, locomotiveData });
+      await this.buildingSlotsRepository.save({ level, buildingType, locomotiveData, index });
     });
+
     return locomotiveData;
   }
 
   public async getLocomotiveData(id: number) {
-    return this.dataRepository.findOne({ where: { id } });
+    return this.locomotiveDataRepository.findOne({
+      where: { id },
+      relations: [
+        "upgradesRecipes",
+        "upgradesRecipes.item",
+        "buildingSlots",
+        "buildingSlots.buildingType"
+      ]
+    });
   }
 
   public async getLocomotivesTypes() {
-    const locomotivesTypes = await this.dataRepository.find({
+    const locomotivesTypes = await this.locomotiveDataRepository.find({
       relations: [
         "updateBuffer",
         "updateBuffer.upgradesRecipes",
@@ -71,11 +86,12 @@ export default class LocomotiveDataService {
         "buildingSlots.buildingType"
       ]
     });
+
     return { items: locomotivesTypes };
   }
 
   public async saveUpdateForLocomotive(id: number, maxLevel: number, upgrades: IUpgradeItem[], buildingSlots: ILocomotiveBuildingSlot[]): Promise<LocomotiveData> {
-    const locomotiveData: LocomotiveData = await this.dataRepository.findOne({
+    const locomotiveData = await this.locomotiveDataRepository.findOne({
       where: { id },
       relations: [
         "updateBuffer",
@@ -87,51 +103,62 @@ export default class LocomotiveDataService {
         "buildingSlots.buildingType"
       ]
     });
+
     if(!locomotiveData) throw Error("Requested locomotive is not exist");
+
     for (let upgradeIndex = 0; upgradeIndex < maxLevel - 1; upgradeIndex++) {
       let { item, count } = upgrades[upgradeIndex];
-      const itemData: ItemData = await this.itemService.getItemById(item.id);
+      const itemData = await this.itemService.getItemById(item.id);
+
       if(!itemData) throw Error("One of item have invalid item id");
       if(count > itemData.maxCount) count = itemData.maxCount;
     }
+
     for (let buildingSlotIndex = 0; buildingSlotIndex < maxLevel; buildingSlotIndex++) {
       let { buildingType } = buildingSlots[buildingSlotIndex];
-      const buildingTypeData: BuildingType = await this.constantsService.getBuildingsType(buildingType.id);
+      const buildingTypeData = await this.constantsService.getBuildingsType(buildingType.id);
+
       if(!buildingTypeData) throw Error("One of building slot have invalid building type");
     }
+
     if(locomotiveData.updateBuffer) {
       await this.upgradesDataBufferRepository.remove(locomotiveData.updateBuffer.upgradesRecipes);
       await this.buildingSlotsBufferRepository.remove(locomotiveData.updateBuffer.buildingSlots);
     }
+
     const upgradesData: LocomotiveDataUpgradeBuffer[] = [];
     const buildingSlotsData: LocomotiveBuildingSlotBuffer[] = [];
-    const locomotiveDataBuffer: LocomotiveDataBuffer = await this.dataBufferRepository.save({ ...locomotiveData.updateBuffer, maxLevel, name: locomotiveData.name });
+    const locomotiveDataBuffer = await this.locomotiveDataBufferRepository.save({ ...locomotiveData.updateBuffer, maxLevel, name: locomotiveData.name });
+
     upgrades.map(async ({ item, count, level }, index) => {
       upgradesData[index] = await this.upgradesDataBufferRepository.save({ item, level, count, locomotiveData: locomotiveDataBuffer });
     });
+
     buildingSlots.map(async ({ buildingType, level }, index) => {
       buildingSlotsData[index] = await this.buildingSlotsBufferRepository.save({ level, buildingType, locomotiveData: locomotiveDataBuffer });
     });
-    return this.dataRepository.save({ ...locomotiveData, updateBuffer: locomotiveDataBuffer });
+
+    return this.locomotiveDataRepository.save({ ...locomotiveData, updateBuffer: locomotiveDataBuffer });
   }
 
   public async changeRotationStatus(id: number): Promise<LocomotiveData> {
-    const locomotiveData: LocomotiveData = await this.dataRepository.findOne({ where: { id } });
+    const locomotiveData = await this.locomotiveDataRepository.findOne({ where: { id } });
+
     if(!locomotiveData) throw Error("There is no locomotive with this id");
-    return this.dataRepository.save({ ...locomotiveData, inRotation: !locomotiveData.inRotation });
+    return this.locomotiveDataRepository.save({ ...locomotiveData, inRotation: !locomotiveData.inRotation });
   }
 
   public async removeUpdates(id: number): Promise<LocomotiveDataBuffer> {
-    const updateBuffer: LocomotiveDataBuffer = await this.dataBufferRepository.findOne({ where: { id } });
+    const updateBuffer = await this.locomotiveDataBufferRepository.findOne({ where: { id } });
+
     if(!updateBuffer) throw Error("There is no incoming update already, please reload the editor");
-    return this.dataBufferRepository.remove(updateBuffer);
+    return this.locomotiveDataBufferRepository.remove(updateBuffer);
   }
 
   public async deleteLocomotiveData(id: number): Promise<LocomotiveData> {
-    const locomotiveData: LocomotiveData = await this.dataRepository.findOne({ where: { id } });
+    const locomotiveData = await this.locomotiveDataRepository.findOne({ where: { id } });
+
     if(!locomotiveData) throw Error("There is no locomotive with this id");
-    return this.dataRepository.remove(locomotiveData);
+    return this.locomotiveDataRepository.remove(locomotiveData);
   }
 }
-
-export { LocomotiveData } from "../../../database/models/locomotiveData";

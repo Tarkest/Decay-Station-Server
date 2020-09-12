@@ -1,2 +1,2 @@
 export * from "./administration";
-export * from "./main";
+export * from "./main/auth";
