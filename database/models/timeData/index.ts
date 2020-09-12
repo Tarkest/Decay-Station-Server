@@ -12,5 +12,7 @@ export class TimeStamp extends BaseEntity {
     @Column({type: "date"})
     endAt: Date;
 
-    @OneToOne(type => CraftData, )
+    @OneToOne(type => CraftData, craftData => craftData.timeStamp, { onDelete: 'CASCADE' })
     @JoinColumn()
+    craftData: CraftData;
+}

@@ -5,11 +5,6 @@ import bodyParser = require("body-parser");
 import { setup } from "./routes-setup";
 import env from "./env.config";
 
-const userChecker = (req, res, next) => {
-  req.userId = 1;
-  next()
-};
-
 const headerApply = (req, res, next) => {
   res.append('Content-Type', 'application/json');
   next();
@@ -38,7 +33,6 @@ class App {
   constructor() {
     createConnection(env(process.env.ENVIRONMENT_NAME))
     .then(_ => {
-      this.app.use(userChecker);
       this.app.use(bodyParser.json());
       this.app.use(headerApply);
       setup(this.app);

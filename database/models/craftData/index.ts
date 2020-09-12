@@ -6,6 +6,6 @@ export class CraftData extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @OneToOne(type => TimeStamp, )
-
+    @OneToOne(type => TimeStamp, timeStamp => timeStamp.craftData, { onDelete: 'CASCADE' })
+    timeStamp: TimeStamp;
 }
