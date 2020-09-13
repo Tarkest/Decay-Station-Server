@@ -11,6 +11,7 @@
     "dbrun": "npm run db migration:run",
     "dbrevert": "npm run db migration:revert",
     "dbgenerate": "npm run db migration:generate -- -n",
+    "dbdrop": "npm run db schema:drop",
     "test": "echo \"Error: no test specified\" && exit 1",
     "debug": "tsc && node-debug index.js",
     "build": "tsc"
