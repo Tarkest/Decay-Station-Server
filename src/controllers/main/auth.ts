@@ -10,6 +10,7 @@ export class Main {
 
   @POST({path: "/login"})
   public async login(req: Request, res: Response) {
+    console.log(req.body);
     const { googleId } = req.body;
     try {
       res.send(await this.accountService.login(googleId));

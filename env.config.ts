@@ -28,7 +28,7 @@ const config = {
     cli: {
       "migrationsDir": "migration"
     },
-    logging: true,
+    logging: false,
     migrationsRun: true
   },
   stage: {
